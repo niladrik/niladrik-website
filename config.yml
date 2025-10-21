@@ -29,7 +29,7 @@ menu:
           weight: 6
 
 params:
-    description: "This is Niladri Niladri Niladri"
+    description: "This is Niladri"
     author: Moritz-Maria von Igelfeld
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
