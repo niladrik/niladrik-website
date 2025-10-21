@@ -106,7 +106,7 @@ params:
         hiddenInSingle: true
     label:
       text: "Moritz-Maria von Igelfeld"
-      icon: favicon.ico
+      icon: tamu-favicon.png
       iconHeight: 18
 
 markup:
