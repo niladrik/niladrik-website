@@ -1,4 +1,4 @@
-baseURL: "https://pascalmichaillat.org/hugo-website/" 
+baseURL: "https://niladrik.github.io" 
 title: Niladri Kal
 theme: PaperMod
 
@@ -55,7 +55,7 @@ params:
     profileMode:
           enabled: true
           title: Niladri Kal
-          subtitle: "I am a fourth-year Ph.D. student in the Department of Statistics, Texas A&M University."
+          subtitle: "I am a fourth-year Ph.D. student in the Department of Statistics, Texas A&M University. I am advised by Dr. Rajarshi Guhaniyogi and Dr. Debdeep Pati."
           imageUrl: "picture.jpeg"
           imageWidth: 160
           imageHeight: 160
