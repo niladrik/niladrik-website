@@ -55,7 +55,7 @@ params:
     profileMode:
           enabled: true
           title: Niladri Kal
-          subtitle: "I am a fourth-year Ph.D. student in the Department of Statistics, Texas A&M University. I am advised by Dr. Rajarshi Guhaniyogi and Dr. Debdeep Pati."
+          subtitle: "I am a fourth-year Ph.D. student in the [Department of Statistics, Texas A&M University](https://artsci.tamu.edu/statistics/index.html). I am advised by [Dr. Rajarshi Guhaniyogi](https://sites.google.com/view/rajguhaniyogi) and [Dr. Debdeep Pati](https://pages.stat.wisc.edu/~dpati2/)."
           imageUrl: "IMG_7549.JPG"
           imageWidth: 160
           imageHeight: 160
@@ -98,6 +98,9 @@ params:
       text: "Niladri Kal"
       icon: tamu-favicon.png
       iconHeight: 18
+      
+    customCSS:
+        - css/extended/custom.css
 
 markup:
     goldmark:
