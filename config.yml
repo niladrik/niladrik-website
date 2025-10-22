@@ -56,7 +56,7 @@ params:
           enabled: true
           title: Niladri Kal
           subtitle: "I am a fourth-year Ph.D. student in the Department of Statistics, Texas A&M University. I am advised by Dr. Rajarshi Guhaniyogi and Dr. Debdeep Pati."
-          imageUrl: "IMG_8893.JPG"
+          imageUrl: "IMG_7549.JPG"
           imageWidth: 160
           imageHeight: 160
           buttons:
@@ -79,25 +79,15 @@ params:
         - name: CV
           url: cv.pdf
         - name: Email
-          url: mailto:igelfeld@regensburg.edu
-        - name: Zoom
-          url: https://www.zoom.us/my/igelfeld
+          url: mailto:niladrik@tamu.edu
         - name: Location
           url: location/
-        - name: Office Hours
-          url: officehours/
-        - name: Google Scholar
-          url: https://scholar.google.com/citations?user=cL23w-4AAAAJ
         - name: GitHub
-          url: https://github.com/pmichaillat
-        - name: Substack
-          url: https://pmichaillat.substack.com
-        - name: YouTube
-          url: https://www.youtube.com/@pmichaillat
-        - name: Twitter
-          url: https://x.com/pmichaillat
-        - name: Bluesky
-          url: https://bsky.app/profile/pmichaillat.bsky.social
+          url: https://github.com/niladrik
+        - name: X
+          url: https://x.com/kalniladri
+        - name: LinkedIn
+          url: https://www.linkedin.com/in/niladrikal
 
     assets:
         disableScrollBarStyle: true
