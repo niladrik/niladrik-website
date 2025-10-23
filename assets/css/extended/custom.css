@@ -76,3 +76,57 @@
 .profile .buttons a::after {
   display: none !important;
 }
+.theme-toggle-float{
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+  background: var(--entry);
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+  z-index: 1200; /* above content */
+}
+.theme-toggle-float:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,.16); }
+.theme-toggle-float svg { pointer-events: none; }
+@media (max-width: 640px){
+  .theme-toggle-float{ right: 1rem; bottom: 1rem; width: 40px; height: 40px; }
+}
+/* Hide the built-in header theme toggle (since we’re using the floating one) */
+.logo-switches #theme-toggle {
+  display: none;
+}
+
+/* === Make underline + blocks use the SAME HOVER color as social icons === */
+/* Social icons already switch to var(--primary) on :hover in PaperMod. */
+
+/* 1) Text-link underline: only change the HOVER underline color */
+.profile-mode a:not(:has(svg)):not(.button):hover::after,
+.profile a:not(:has(svg)):not(.button):hover::after,
+.home-info a:not(:has(svg)):not(.button):hover::after,
+#profile a:not(:has(svg)):not(.button):hover::after {
+  background: var(--primary); /* match social icon hover */
+}
+
+/* Unified hover fill for both light + dark themes */
+.button,
+.btn,
+.home-info .button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* On hover — use the same bluish tone across themes */
+.button:hover,
+.btn:hover,
+.home-info .button:hover {
+  background-color: var(--darkcolor); /* consistent bluish fill */
+  color: var(--theme);
+  border-color: var(--darkcolor);
+}
+
