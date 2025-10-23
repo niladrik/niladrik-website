@@ -12,9 +12,6 @@ taxonomies:
 
 menu:
     main:
-        - name: Home
-          url: /
-          weight: 1 
         - name: Research
           url: papers/
           weight: 2
@@ -23,6 +20,9 @@ menu:
           weight: 3
         - name: Connect
           url: location/
+          weight: 5 
+        - name: News
+          #url: location/
           weight: 4 
 
 params:
@@ -54,20 +54,16 @@ params:
           enabled: true
           title: Niladri Kal
           subtitle: "Howdy! I am a Ph.D. student in the [Department of Statistics](https://artsci.tamu.edu/statistics/index.html) at Texas A&M University, advised by [Dr. Rajarshi Guhaniyogi](https://sites.google.com/view/rajguhaniyogi) and [Dr. Debdeep Pati](https://pages.stat.wisc.edu/~dpati2/). Before joining Texas A&M, I completed my master’s degree at the [Indian Statistical Institute](https://www.isical.ac.in) and my bachelor’s degree at [St. Xavier’s College, Kolkata](https://www.sxccal.edu/)."
-          imageUrl: "IMG_7549.JPG"
+          imageUrl: "/IMG_7549.JPG"
           imageWidth: 160
           imageHeight: 160
           buttons:
             - name: Research
               url: papers/
-            - name: Courses
+            - name: Teaching
               url: courses/
-            - name: Tags
-              url: tags/
-            - name: Archive
-              url: archive/
-            - name: Blog
-              url: https://en.wikipedia.org/wiki/Moritz-Maria_von_Igelfeld_(character)
+            - name: News
+              #url: tags/
 
     socialIcons:
         - name: CV
