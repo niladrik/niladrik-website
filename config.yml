@@ -18,8 +18,8 @@ menu:
         - name: Teaching
           url: courses/
           weight: 3
-        - name: Connect
-          url: location/
+        - name: Contact
+          url: contact/
           weight: 5 
         - name: News
           #url: location/
@@ -71,7 +71,7 @@ params:
         - name: Email
           url: mailto:niladrik@tamu.edu
         - name: Location
-          url: location/
+          url: contact/
         - name: GitHub
           url: https://github.com/niladrik
         - name: X
