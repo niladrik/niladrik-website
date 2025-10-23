@@ -1,0 +1,4 @@
+---
+title: "Home"
+hideNavbar: false
+---

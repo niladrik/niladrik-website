@@ -12,30 +12,28 @@ taxonomies:
 
 menu:
     main:
-        - name: Books
-          url: books/
-          weight: 5 
-        - name: Papers
+        - name: Home
+          url: /
+          weight: 1 
+        - name: Research
           url: papers/
           weight: 2
-        - name: Courses
+        - name: Teaching
           url: courses/
           weight: 3
-        - name: Data
-          url: data/
+        - name: Connect
+          url: location/
           weight: 4 
-        - name: Blog
-          url: https://en.wikipedia.org/wiki/Moritz-Maria_von_Igelfeld_(character)
-          weight: 6
 
 params:
-    description: "This is Niladri"
-    author: Moritz-Maria von Igelfeld
+    description: "Niladri's Homepage"
+    author: Niladri Kal
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
-    defaultTheme: light
+    defaultTheme: auto
+    hideNavbar: false
     hideFooter: false
-    disableThemeToggle: true
+    disableThemeToggle: false
     ShowShareButtons: false
     ShowReadingTime: false
     disableSpecial1stPost: true
@@ -55,17 +53,13 @@ params:
     profileMode:
           enabled: true
           title: Niladri Kal
-          subtitle: "I am a fourth-year Ph.D. student in the [Department of Statistics, Texas A&M University](https://artsci.tamu.edu/statistics/index.html). I am advised by [Dr. Rajarshi Guhaniyogi](https://sites.google.com/view/rajguhaniyogi) and [Dr. Debdeep Pati](https://pages.stat.wisc.edu/~dpati2/)."
+          subtitle: "Howdy! I am a Ph.D. student in the [Department of Statistics](https://artsci.tamu.edu/statistics/index.html) at Texas A&M University, advised by [Dr. Rajarshi Guhaniyogi](https://sites.google.com/view/rajguhaniyogi) and [Dr. Debdeep Pati](https://pages.stat.wisc.edu/~dpati2/). Before joining Texas A&M, I completed my master’s degree at the [Indian Statistical Institute](https://www.isical.ac.in) and my bachelor’s degree at [St. Xavier’s College, Kolkata](https://www.sxccal.edu/)."
           imageUrl: "IMG_7549.JPG"
           imageWidth: 160
           imageHeight: 160
           buttons:
-            - name: Papers
+            - name: Research
               url: papers/
-            - name: Data
-              url: data/
-            - name: Books
-              url: books/
             - name: Courses
               url: courses/
             - name: Tags
@@ -98,7 +92,7 @@ params:
       text: "Niladri Kal"
       icon: tamu-favicon.png
       iconHeight: 18
-      
+
     customCSS:
         - css/extended/custom.css
 

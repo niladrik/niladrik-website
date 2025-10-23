@@ -55,7 +55,7 @@
 .profile a:not(:has(svg)):not(.button):hover,
 .home-info a:not(:has(svg)):not(.button):hover,
 #profile a:not(:has(svg)):not(.button):hover {
-  text-shadow: 0 0 6px rgba(180,180,180,0.7);
+  text-shadow: none;
 }
 
 .profile-mode a:not(:has(svg)):not(.button):hover::after,
