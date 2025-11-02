@@ -65,6 +65,14 @@ slug: "contact"
 
 <div style="flex: 1; min-width: 250px;">
 
+#### <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg> Email
+
+<span style="font-family: monospace;">niladrik[at]tamu[dot]edu</span>
+
+</div>
+
+<div style="flex: 1; min-width: 250px;">
+
 #### <svg class="icon" aria-hidden="true"><use href="#icon-pin"/></svg> Office location
   
 Room 460  
@@ -75,13 +83,7 @@ USA
 
 </div>
 
-<div style="flex: 1; min-width: 250px;">
 
-#### <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg> Email
-
-<span style="font-family: monospace;">niladrik[at]tamu[dot]edu</span>
-
-</div>
 
 </div>
 

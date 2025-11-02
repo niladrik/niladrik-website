@@ -16,7 +16,7 @@ menu:
           url: papers/
           weight: 2
         - name: Teaching
-          url: courses/
+          url: /teaching/
           weight: 3
         - name: Contact
           url: contact/
@@ -42,7 +42,7 @@ params:
     ShowBreadCrumbs: false
     ShowCodeCopyButtons: true
     ShowAllPagesInArchive: false
-    MainSections: ["books","courses","papers","data"]
+    MainSections: ["books","teaching","papers","data"]
     ShowToc: false
     disableScrollToTop: true
     TocOpen: true
@@ -55,13 +55,13 @@ params:
           title: Niladri Kal
           subtitle: "Howdy! I am a Ph.D. student in the [Department of Statistics](https://artsci.tamu.edu/statistics/index.html) at Texas A&M University, advised by [Dr. Rajarshi Guhaniyogi](https://sites.google.com/view/rajguhaniyogi) and [Dr. Debdeep Pati](https://pages.stat.wisc.edu/~dpati2/). Before joining Texas A&M, I completed my master’s degree at the [Indian Statistical Institute](https://www.isical.ac.in) and my bachelor’s degree at [St. Xavier’s College, Kolkata](https://www.sxccal.edu/)."
           imageUrl: "/Profile.JPG"
-          imageWidth: 160
-          imageHeight: 160
+          imageWidth: 180
+          imageHeight: 180
           buttons:
             - name: Research
               url: papers/
             - name: Teaching
-              url: courses/
+              url: /teaching/
             - name: News
               #url: tags/
 
