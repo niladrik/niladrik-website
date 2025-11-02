@@ -149,69 +149,80 @@
         </ul>
         <script>
             (function(){
-            const menu = document.getElementById('menu');
-            if(!menu) return;
+            // Add/adjust selectors to match your theme:
+            const candidates = ['#menu', '.menu__inner--mobile', '.menu__inner']; 
 
-            const activeSpan = menu.querySelector('span.active');
-            const activeA    = activeSpan ? activeSpan.closest('a') : menu.querySelector('a');
-
-            function setInkTo(el){
-                if(!el) return;
-                const menuBox = menu.getBoundingClientRect();
-                const box = el.getBoundingClientRect();
-                const left  = Math.round(box.left - menuBox.left) + 'px';
-                const width = Math.round(box.width) + 'px';
-                menu.style.setProperty('--ink-left', left);
-                menu.style.setProperty('--ink-width', width); // px OK; CSS does /1px
+            function visibleMenu(){
+                for (const sel of candidates){
+                const el = document.querySelector(sel);
+                if (!el) continue;
+                // visible if has layout boxes and not display:none
+                if (el.offsetParent !== null || el.getClientRects().length) return el;
+                }
+                return null;
             }
 
-            // Initial position → active link (fallback: first link)
-            setInkTo(activeA);
+            function setInkTo(host, el){
+                if (!host || !el) return;
+                const hb = host.getBoundingClientRect();
+                const rb = el.getBoundingClientRect();
+                const left  = Math.round(rb.left - hb.left) + 'px';
+                const width = Math.round(rb.width) + 'px';
+                host.style.setProperty('--ink-left',  left);
+                host.style.setProperty('--ink-width', width);
+            }
 
-            // --- Desktop hover (keep yours) ---
-            menu.querySelectorAll('a').forEach(a=>{
-                a.addEventListener('mouseenter', () => setInkTo(a));
-                a.addEventListener('focus',      () => setInkTo(a)); // keyboard focus on <a>
+            function currentActive(host){
+                return host.querySelector('a span.active')?.closest('a') || host.querySelector('a');
+            }
+
+            let host = visibleMenu();
+            if (!host) return;
+
+            // init to active (fallback to first)
+            setInkTo(host, currentActive(host));
+
+            // desktop hover + keyboard focus on links inside the current host
+            host.querySelectorAll('a').forEach(a=>{
+                a.addEventListener('mouseenter', () => setInkTo(host, a));
+                a.addEventListener('focus',      () => setInkTo(host, a));
             });
 
-            // --- NEW: Mobile/touch tap (event delegation) ---
-            menu.addEventListener('pointerdown', (e) => {          // ADD
-                const a = e.target.closest('#menu a');               // ADD
-                if(a) setInkTo(a);                                   // ADD
-            }, {passive:true});                                    // ADD
+            // mobile/touch: move ink on tap
+            host.addEventListener('pointerdown', e => {
+                const a = e.target.closest('a');
+                if (a && host.contains(a)) setInkTo(host, a);
+            }, {passive:true});
 
-            // --- NEW: Keyboard focus from inner span (Safari/iOS quirks) ---
-            menu.addEventListener('focusin', (e) => {              // ADD
-                const a = e.target.closest('#menu a');               // ADD
-                if(a) setInkTo(a);                                   // ADD
-            });                                                    // ADD
-
-            // Slide back to active when leaving the menu (desktop only—keep yours)
-            menu.addEventListener('mouseleave', () => setInkTo(activeA));
-
-            // Keep position correct on resize / orientation / menu scroll
-            const realign = () => {
-                // prefer hovered/focused link if any, else active
-                const hoverA = menu.querySelector('a:hover');
-                const focusA = document.activeElement && document.activeElement.closest && document.activeElement.closest('#menu a');
-                setInkTo(hoverA || focusA || activeA);
-            };
+            // realign on resize/orientation AND when the visible host changes (drawer opens)
+            let raf;
+            function realign(){
+                cancelAnimationFrame(raf);
+                raf = requestAnimationFrame(() => {
+                const newHost = visibleMenu();
+                if (newHost !== host) {
+                    host = newHost;
+                    if (!host) return;
+                }
+                const hovered = host.querySelector('a:hover');
+                const focusEl = document.activeElement && document.activeElement.closest?.('a');
+                setInkTo(host, hovered || (focusEl && host.contains(focusEl) ? focusEl : currentActive(host)));
+                });
+            }
             window.addEventListener('resize', realign, {passive:true});
-            menu.addEventListener('scroll', realign, {passive:true});
 
-            // Also realign after page load/layout settles
+            // observe attribute/display changes on the menu wrappers (drawer open/close)
+            const mo = new MutationObserver(realign);
+            document.querySelectorAll('.header, .menu, .menu__inner--mobile').forEach(n => {
+                if (n) mo.observe(n, {attributes:true, subtree:true});
+            });
+
+            // after load/layout settle
             window.addEventListener('load', realign, {once:true});
             requestAnimationFrame(realign);
-
-            // --- Optional: if the active page link changes dynamically, observe it ---
-            const mo = new MutationObserver(() => {
-                const newActiveSpan = menu.querySelector('span.active');
-                const newActiveA = newActiveSpan ? newActiveSpan.closest('a') : null;
-                if(newActiveA) { setInkTo(newActiveA); }
-            });
-            mo.observe(menu, {subtree:true, attributes:true, attributeFilter:['class']});
             })();
         </script>
+
 
 
     </nav>

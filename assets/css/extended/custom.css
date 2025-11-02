@@ -262,6 +262,33 @@ body.dark #menu::after {
 @media (prefers-reduced-motion: reduce) {
   #menu::after { transition: none; }
 }
+/* Mobile menu uses a different container in many themes (e.g., PaperMod) */
+.menu__inner--mobile {
+  position: relative;
+  overflow: visible;
+}
+
+.menu__inner--mobile::after{
+  content:"";
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  width:1px; height:2px;
+  background:#500000;
+  transform-origin:left center;
+  /* px → number conversion just like #menu */
+  transform:
+    translateX(var(--ink-left, 0px))
+    scaleX(calc(var(--ink-width, 0px) / 1px));
+  will-change: transform;
+  transition: transform .25s ease;
+}
+
+body.dark .menu__inner--mobile::after{ background:#ddd8d8; }
+
+@media (max-width: 640px){
+  .menu__inner--mobile::after{ bottom:-6px; } /* small nudge if rows are taller */
+}
 
 /* === Make header bar exactly match the page background === */
 
