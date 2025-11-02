@@ -236,17 +236,21 @@ body.dark #menu a span.active {
 }
 
 /* 3. Animated underline "ink" */
-#menu::after {
-  content: "";
-  position: absolute;
-  left: var(--ink-left, 0px);
-  width: var(--ink-width, 0px);
-  height: 2px;
-  bottom: -4px;
-  background: #500000;               /* maroon underline */
-  z-index: 5;
-  pointer-events: none;
-  transition: left 0.25s ease, width 0.25s ease, background-color 0.25s ease;
+#menu::after{
+  content:"";
+  position:absolute;
+  bottom:-4px;
+  left:0;
+  width:1px;                 /* constant; we scale it */
+  height:2px;
+  background:#500000;
+  transform-origin:left center;
+  /* 👇 translate uses px, scaleX converts px→number */
+  transform:
+    translateX(var(--ink-left, 0px))
+    scaleX(calc(var(--ink-width, 0px) / 1px));
+  will-change: transform;
+  transition: transform .25s ease;
 }
 
 /* 4. Dark theme version */
@@ -259,3 +263,22 @@ body.dark #menu::after {
   #menu::after { transition: none; }
 }
 
+/* === Make header bar exactly match the page background === */
+
+/* Light + dark: force solid bg, no blur/tint */
+body,
+.main,
+.page {
+  background: var(--theme) !important;
+}
+
+.header,
+.nav,
+.site-header,
+.header .nav {
+  background: var(--theme) !important;   /* same as page */
+  box-shadow: none !important;           /* remove subtle bottom shadow line */
+  border-bottom: none !important;
+  -webkit-backdrop-filter: none !important; /* iOS Safari tint/blur */
+  backdrop-filter: none !important;
+}

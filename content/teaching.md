@@ -42,23 +42,39 @@ html[data-theme='dark'] .nk-teach {
 }
 
 /* Dot outside pill */
-.nk-item::before {
-  content:"";
-  position:absolute;
-  left:calc(var(--rail-x) - var(--dot) - 6px);
-  top:50%; transform:translateY(-50%);
-  width:var(--dot); height:var(--dot);
-  border-radius:50%;
-  background:currentColor;
-  box-shadow:0 0 0 3px var(--line);
-  opacity:.9; z-index:1;
-}
+.nk-item::before { content: none; }
+
 
 /* Pill */
 .nk-item > :first-child {
+  position: relative;
   display:flex; align-items:center; min-height:56px;
   padding-left:calc(var(--dot) + 25px);
 }
+.nk-item > :first-child::before {
+  content:"";
+  position:absolute;
+  left:calc(var(--rail-x) - var(--dot) - 6px);
+  top:28px;                          /* half of 56px min-height */
+  transform:translateY(-50%);
+  width:var(--dot); 
+  height:var(--dot);
+  border-radius:50%;
+  background:var(--dot-idle, currentColor);
+  box-shadow:0 0 0 3px var(--line);
+  opacity:.9; 
+  z-index:1;
+  transition: background-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+/* Dot goes maroon when the card is interacted with */
+/* Dot active when hovered OR while countdown is running */
+.nk-item:hover > :first-child::before,
+.nk-item:has(.nk-card.nk-active) > :first-child::before {
+  background: var(--dot-active, var(--accent, #500000));
+  box-shadow: 0 0 0 3px var(--dot-active, var(--accent, #500000));
+}
+
+
 .nk-sem {
   display:inline-block;
   padding:.25rem .6rem;
@@ -377,11 +393,13 @@ html[data-theme='dark'] .nk-teach {
     if(on){
       item.style.setProperty('--timer-ms', FLIP_MS + 'ms');
       item.classList.add('is-timing');
+      card.classList.add('nk-active');
     }else{
       // reset animation so next start begins from 0
       item.classList.remove('is-timing');
       item.style.removeProperty('--timer-ms');
       void item.offsetWidth; // reflow to restart animation next time
+      card.classList.remove('nk-active');
     }
   }
 
