@@ -22,11 +22,22 @@ hideMeta: true
   --pill-bg:Canvas;
   --pill-fg:CanvasText;
 }
+/* Dark mode: transparent pill, inherit text color */
 @media (prefers-color-scheme: dark){
-  .nk-teach { --line:var(--line-dark); --pill-bg:#fff; --pill-fg:#111; }
+  .nk-teach{
+    --line:var(--line-dark);
+    --pill-bg: transparent;
+    --pill-fg: currentColor;
+  }
 }
-html[data-theme='dark'] .nk-teach {
-  --line:var(--line-dark); --pill-bg:#fff; --pill-fg:#111;
+
+/* Cover theme’s class-based dark modes too */
+html[data-theme='dark'] .nk-teach,
+html.dark .nk-teach,
+body.dark .nk-teach{
+  --line:var(--line-dark);
+  --pill-bg: transparent;
+  --pill-fg: currentColor;
 }
 
 /* Layout */
