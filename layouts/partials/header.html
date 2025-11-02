@@ -149,81 +149,92 @@
         </ul>
         <script>
             (function(){
-            // Add/adjust selectors to match your theme:
-            const candidates = ['#menu', '.menu__inner--mobile', '.menu__inner']; 
+            // ---- Settings
+            const HOSTS = ['.menu__inner--mobile', '#menu', '.menu__inner']; // first visible wins
+            const TRANSITION = 'transform 250ms ease';
 
-            function visibleMenu(){
-                for (const sel of candidates){
+            // ---- Helpers
+            function getHost(){
+                for(const sel of HOSTS){
                 const el = document.querySelector(sel);
                 if (!el) continue;
-                // visible if has layout boxes and not display:none
                 if (el.offsetParent !== null || el.getClientRects().length) return el;
                 }
                 return null;
             }
-
-            function setInkTo(host, el){
-                if (!host || !el) return;
-                const hb = host.getBoundingClientRect();
-                const rb = el.getBoundingClientRect();
-                const left  = Math.round(rb.left - hb.left) + 'px';
-                const width = Math.round(rb.width) + 'px';
-                host.style.setProperty('--ink-left',  left);
-                host.style.setProperty('--ink-width', width);
+            function ensureInk(host){
+                let ink = host.querySelector('.ink');
+                if(!ink){
+                ink = document.createElement('span');
+                ink.className = 'ink';
+                host.appendChild(ink);
+                }
+                if(ink.style.transition !== TRANSITION) ink.style.transition = TRANSITION;
+                return ink;
             }
-
-            function currentActive(host){
+            function activeLink(host){
                 return host.querySelector('a span.active')?.closest('a') || host.querySelector('a');
             }
+            function moveTo(host, el){
+                if(!host || !el) return;
+                const ink = ensureInk(host);
+                const hb = host.getBoundingClientRect();
+                const rb = el.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                const x = Math.round((rb.left - hb.left) * dpr) / dpr;
+                const w = Math.round(rb.width * dpr) / dpr;
 
-            let host = visibleMenu();
-            if (!host) return;
+                // Skip if no change (prevents Safari from collapsing transitions)
+                if (ink.dataset.x == x && ink.dataset.w == w) return;
 
-            // init to active (fallback to first)
-            setInkTo(host, currentActive(host));
-
-            // desktop hover + keyboard focus on links inside the current host
-            host.querySelectorAll('a').forEach(a=>{
-                a.addEventListener('mouseenter', () => setInkTo(host, a));
-                a.addEventListener('focus',      () => setInkTo(host, a));
-            });
-
-            // mobile/touch: move ink on tap
-            host.addEventListener('pointerdown', e => {
-                const a = e.target.closest('a');
-                if (a && host.contains(a)) setInkTo(host, a);
-            }, {passive:true});
-
-            // realign on resize/orientation AND when the visible host changes (drawer opens)
-            let raf;
-            function realign(){
-                cancelAnimationFrame(raf);
-                raf = requestAnimationFrame(() => {
-                const newHost = visibleMenu();
-                if (newHost !== host) {
-                    host = newHost;
-                    if (!host) return;
-                }
-                const hovered = host.querySelector('a:hover');
-                const focusEl = document.activeElement && document.activeElement.closest?.('a');
-                setInkTo(host, hovered || (focusEl && host.contains(focusEl) ? focusEl : currentActive(host)));
-                });
+                ink.dataset.x = x; ink.dataset.w = w;
+                // Reflow to guarantee transition
+                void ink.offsetWidth;
+                ink.style.transform = `translate3d(${x}px,0,0) scaleX(${w})`;
             }
-            window.addEventListener('resize', realign, {passive:true});
+            function reset(host){ moveTo(host, activeLink(host)); }
 
-            // observe attribute/display changes on the menu wrappers (drawer open/close)
-            const mo = new MutationObserver(realign);
-            document.querySelectorAll('.header, .menu, .menu__inner--mobile').forEach(n => {
-                if (n) mo.observe(n, {attributes:true, subtree:true});
+            // ---- Init
+            const host = getHost();
+            if(!host) return;
+            ensureInk(host);
+            requestAnimationFrame(()=> reset(host));  // initial snap
+
+            // ---- Event delegation (single bind)
+            // Use mouseover/mouseout (they bubble); filter to <a>
+            host.addEventListener('mouseover', e=>{
+                const a = e.target.closest('a');
+                if(a && host.contains(a)) moveTo(host, a);
+            });
+            host.addEventListener('mouseout', e=>{
+                // If leaving an <a> or the host entirely, restore
+                const to = e.relatedTarget;
+                if(!to || !host.contains(to)) setTimeout(()=>reset(host), 60);
             });
 
-            // after load/layout settle
-            window.addEventListener('load', realign, {once:true});
-            requestAnimationFrame(realign);
+            // Keyboard focus
+            host.addEventListener('focusin', e=>{
+                const a = e.target.closest('a');
+                if(a && host.contains(a)) moveTo(host, a);
+            });
+            host.addEventListener('focusout', e=>{
+                if(!host.contains(e.relatedTarget)) setTimeout(()=>reset(host), 60);
+            });
+
+            // Touch/pointer
+            host.addEventListener('pointerdown', e=>{
+                const a = e.target.closest('a');
+                if(a && host.contains(a)) moveTo(host, a);
+            }, {passive:true});
+            host.addEventListener('pointerup', ()=> setTimeout(()=>reset(host), 180), {passive:true});
+
+            // Keep aligned on size/orientation/font load (no observers)
+            const realign = ()=> reset(host);
+            window.addEventListener('resize', realign, {passive:true});
+            window.addEventListener('orientationchange', realign, {passive:true});
+            document.fonts?.ready?.then(realign);
+            window.addEventListener('pageshow', realign, {passive:true});
             })();
         </script>
-
-
-
     </nav>
 </header>
