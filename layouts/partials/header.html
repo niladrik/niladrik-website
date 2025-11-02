@@ -152,7 +152,6 @@
             const menu = document.getElementById('menu');
             if(!menu) return;
 
-            // anchor that contains the current <span class="active">
             const activeSpan = menu.querySelector('span.active');
             const activeA    = activeSpan ? activeSpan.closest('a') : menu.querySelector('a');
 
@@ -163,25 +162,39 @@
                 const left  = Math.round(box.left - menuBox.left) + 'px';
                 const width = Math.round(box.width) + 'px';
                 menu.style.setProperty('--ink-left', left);
-                menu.style.setProperty('--ink-width', width);
+                menu.style.setProperty('--ink-width', width); // px OK; CSS does /1px
             }
 
             // Initial position → active link (fallback: first link)
             setInkTo(activeA);
 
-            // Slide to hovered/focused link
+            // --- Desktop hover (keep yours) ---
             menu.querySelectorAll('a').forEach(a=>{
                 a.addEventListener('mouseenter', () => setInkTo(a));
-                a.addEventListener('focus',      () => setInkTo(a));
+                a.addEventListener('focus',      () => setInkTo(a)); // keyboard focus on <a>
             });
 
-            // Slide back to active when leaving the menu
+            // --- NEW: Mobile/touch tap (event delegation) ---
+            menu.addEventListener('pointerdown', (e) => {          // ADD
+                const a = e.target.closest('#menu a');               // ADD
+                if(a) setInkTo(a);                                   // ADD
+            }, {passive:true});                                    // ADD
+
+            // --- NEW: Keyboard focus from inner span (Safari/iOS quirks) ---
+            menu.addEventListener('focusin', (e) => {              // ADD
+                const a = e.target.closest('#menu a');               // ADD
+                if(a) setInkTo(a);                                   // ADD
+            });                                                    // ADD
+
+            // Slide back to active when leaving the menu (desktop only—keep yours)
             menu.addEventListener('mouseleave', () => setInkTo(activeA));
 
-            // Keep position correct on resize and when the menu scrolls (PaperMod keeps menu scroll pos)
+            // Keep position correct on resize / orientation / menu scroll
             const realign = () => {
-                const current = menu.matches(':hover') ? menu.querySelector('a:hover') : activeA;
-                setInkTo(current);
+                // prefer hovered/focused link if any, else active
+                const hoverA = menu.querySelector('a:hover');
+                const focusA = document.activeElement && document.activeElement.closest && document.activeElement.closest('#menu a');
+                setInkTo(hoverA || focusA || activeA);
             };
             window.addEventListener('resize', realign, {passive:true});
             menu.addEventListener('scroll', realign, {passive:true});
@@ -189,8 +202,17 @@
             // Also realign after page load/layout settles
             window.addEventListener('load', realign, {once:true});
             requestAnimationFrame(realign);
+
+            // --- Optional: if the active page link changes dynamically, observe it ---
+            const mo = new MutationObserver(() => {
+                const newActiveSpan = menu.querySelector('span.active');
+                const newActiveA = newActiveSpan ? newActiveSpan.closest('a') : null;
+                if(newActiveA) { setInkTo(newActiveA); }
+            });
+            mo.observe(menu, {subtree:true, attributes:true, attributeFilter:['class']});
             })();
         </script>
+
 
     </nav>
 </header>
