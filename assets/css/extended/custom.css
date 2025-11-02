@@ -8,21 +8,37 @@
   color: inherit;
 }
 
-/* ---- ICON LINKS (contain SVG): keep magnify on hover) ---- */
+/* ---- ICON LINKS (contain SVG): keep magnify on hover ---- */
 .profile-mode a:has(svg),
 .profile a:has(svg),
 .home-info a:has(svg),
 #profile a:has(svg) {
   display: inline-block;
-  transition: transform .2s ease;
+  transition: transform .25s ease, color .25s ease, fill .25s ease, stroke .25s ease;
 }
 
+/* Hover scaling + font icon color */
 .profile-mode a:has(svg):hover,
 .profile a:has(svg):hover,
 .home-info a:has(svg):hover,
 #profile a:has(svg):hover {
-  transform: scale(1.08);
+  transform: scale(1.25);
+  color: #500000;
 }
+
+/* Dark theme — make hover color creamy white */
+html.dark .profile-mode a:has(svg):hover,
+html.dark .profile a:has(svg):hover,
+html.dark .home-info a:has(svg):hover,
+html.dark #profile a:has(svg):hover,
+[data-theme="dark"] .profile-mode a:has(svg):hover,
+[data-theme="dark"] .profile a:has(svg):hover,
+[data-theme="dark"] .home-info a:has(svg):hover,
+[data-theme="dark"] #profile a:has(svg):hover {
+  color: #ddd8d8; /* creamy white in dark mode */
+}
+
+
 
 /* ---- TEXT LINKS (no SVG, no buttons): animated underline + glow ---- */
 .profile-mode a:not(:has(svg)):not(.button),
@@ -44,7 +60,7 @@
   bottom: -2px;
   width: 100%;
   height: 2px;
-  background: rgba(180,180,180,0.75);
+  background: #500000;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform .25s ease;
@@ -103,30 +119,143 @@
   display: none;
 }
 
-/* === Make underline + blocks use the SAME HOVER color as social icons === */
-/* Social icons already switch to var(--primary) on :hover in PaperMod. */
+/* === Outline-style maroon hover === */
+:root { --nk-accent: #500000; }
 
-/* 1) Text-link underline: only change the HOVER underline color */
-.profile-mode a:not(:has(svg)):not(.button):hover::after,
-.profile a:not(:has(svg)):not(.button):hover::after,
-.home-info a:not(:has(svg)):not(.button):hover::after,
-#profile a:not(:has(svg)):not(.button):hover::after {
-  background: var(--primary); /* match social icon hover */
-}
-
-/* Unified hover fill for both light + dark themes */
+/* Base: subtle maroon border, normal text color */
 .button,
 .btn,
 .home-info .button {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 2px solid var(--nk-accent);
+  background-color: transparent;
+  color: var(--nk-accent);
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
 }
 
-/* On hover — use the same bluish tone across themes */
+/* Hover: fill maroon + white text for clear action cue */
 .button:hover,
 .btn:hover,
 .home-info .button:hover {
-  background-color: var(--darkcolor); /* consistent bluish fill */
-  color: var(--theme);
-  border-color: var(--darkcolor);
+  background-color: var(--nk-accent);
+  color: #ffffff !important;
+  border-color: var(--nk-accent);
+}
+
+/* Ensure good visibility in dark theme */
+[data-theme='dark'] .button,
+[data-theme='dark'] .btn,
+[data-theme='dark'] .home-info .button {
+  color: #ffffff;
+  border-color: var(--nk-accent);
+}
+[data-theme='dark'] .button:hover,
+[data-theme='dark'] .btn:hover,
+[data-theme='dark'] .home-info .button:hover {
+  background-color: var(--nk-accent);
+  color: #ffffff;
+}
+
+/* ==== ICON HOVER — follow page toggle: body.dark ==== */
+
+/* Light mode (explicit reset) */
+body:not(.dark) .profile-mode a:has(svg):hover svg,
+body:not(.dark) .profile a:has(svg):hover svg,
+body:not(.dark) .home-info a:has(svg):hover svg,
+body:not(.dark) #profile a:has(svg):hover svg {
+  /* let icons just use the link's hover color (your maroon) */
+  fill: none !important;
+  stroke: #500000 !important;
+}
+
+/* Dark mode — maroon fill + creamy border, creamy link color */
+body.dark .profile-mode a:has(svg):hover,
+body.dark .profile a:has(svg):hover,
+body.dark .home-info a:has(svg):hover,
+body.dark #profile a:has(svg):hover {
+  color: #ddd8d8 !important;              /* creamy text/icon color */
+}
+
+body.dark .profile-mode a:has(svg):hover svg,
+body.dark .profile a:has(svg):hover svg,
+body.dark .home-info a:has(svg):hover svg,
+body.dark #profile a:has(svg):hover svg,
+body.dark .profile-mode a:has(svg):hover svg *,
+body.dark .profile a:has(svg):hover svg *,
+body.dark .home-info a:has(svg):hover svg *,
+body.dark #profile a:has(svg):hover svg * {
+  fill: #500000 !important;               /* TAMU maroon fill */
+  stroke: #ddd8d8 !important;             /* creamy outline */
+  stroke-width: 1.5px !important;         /* make border visible */
+}
+
+/* === Dark mode: creamy borders + creamy text underlines === */
+
+/* 1) Buttons / boxes: border becomes creamy in dark */
+body.dark .button,
+body.dark .btn,
+body.dark .home-info .button {
+  border-color: #ddd8d8 !important;  /* creamy white */
+  color: #ddd8d8;                    /* outline style text stays readable */
+}
+
+/* Keep your existing hover: maroon fill + white text */
+body.dark .button:hover,
+body.dark .btn:hover,
+body.dark .home-info .button:hover {
+  background-color: #500000 !important; /* TAMU maroon */
+  border-color: #500000 !important;
+  color: #ffffff !important;
+}
+
+/* 2) Text links (no SVG/buttons): underline switches to creamy white */
+body.dark .profile-mode a:not(:has(svg)):not(.button)::after,
+body.dark .profile a:not(:has(svg)):not(.button)::after,
+body.dark .home-info a:not(:has(svg)):not(.button)::after,
+body.dark #profile a:not(:has(svg)):not(.button)::after {
+  background: #ddd8d8 !important;        /* underline color in dark */
+}
+
+/* (Your existing hover grows the underline via transform; this just recolors it) */
+
+/* === Active Page Link + Sliding Underline === */
+
+/* 1. Active link style */
+#menu a span.active {
+  color: #500000;                    /* TAMU maroon */
+  font-weight: 600;
+  border-bottom: none !important;    /* no static underline, since we'll animate */
+}
+body.dark #menu a span.active {
+  color: #ddd8d8;                    /* creamy white for dark mode */
+}
+
+/* 2. Sliding underline container */
+#menu {
+  position: relative;
+  overflow: visible;
+}
+
+/* 3. Animated underline "ink" */
+#menu::after {
+  content: "";
+  position: absolute;
+  left: var(--ink-left, 0px);
+  width: var(--ink-width, 0px);
+  height: 2px;
+  bottom: -4px;
+  background: #500000;               /* maroon underline */
+  z-index: 5;
+  pointer-events: none;
+  transition: left 0.25s ease, width 0.25s ease, background-color 0.25s ease;
+}
+
+/* 4. Dark theme version */
+body.dark #menu::after {
+  background: #ddd8d8;               /* creamy underline for dark */
+}
+
+/* 5. Accessibility: disable motion if user prefers */
+@media (prefers-reduced-motion: reduce) {
+  #menu::after { transition: none; }
 }
 

@@ -147,5 +147,50 @@
             </li>
             {{- end }}
         </ul>
+        <script>
+            (function(){
+            const menu = document.getElementById('menu');
+            if(!menu) return;
+
+            // anchor that contains the current <span class="active">
+            const activeSpan = menu.querySelector('span.active');
+            const activeA    = activeSpan ? activeSpan.closest('a') : menu.querySelector('a');
+
+            function setInkTo(el){
+                if(!el) return;
+                const menuBox = menu.getBoundingClientRect();
+                const box = el.getBoundingClientRect();
+                const left  = Math.round(box.left - menuBox.left) + 'px';
+                const width = Math.round(box.width) + 'px';
+                menu.style.setProperty('--ink-left', left);
+                menu.style.setProperty('--ink-width', width);
+            }
+
+            // Initial position → active link (fallback: first link)
+            setInkTo(activeA);
+
+            // Slide to hovered/focused link
+            menu.querySelectorAll('a').forEach(a=>{
+                a.addEventListener('mouseenter', () => setInkTo(a));
+                a.addEventListener('focus',      () => setInkTo(a));
+            });
+
+            // Slide back to active when leaving the menu
+            menu.addEventListener('mouseleave', () => setInkTo(activeA));
+
+            // Keep position correct on resize and when the menu scrolls (PaperMod keeps menu scroll pos)
+            const realign = () => {
+                const current = menu.matches(':hover') ? menu.querySelector('a:hover') : activeA;
+                setInkTo(current);
+            };
+            window.addEventListener('resize', realign, {passive:true});
+            menu.addEventListener('scroll', realign, {passive:true});
+
+            // Also realign after page load/layout settles
+            window.addEventListener('load', realign, {once:true});
+            requestAnimationFrame(realign);
+            })();
+        </script>
+
     </nav>
 </header>
