@@ -74,7 +74,7 @@ params:
 
     socialIcons:
         - name: CV
-          url: cv.pdf
+          #url: cv.pdf
         - name: Email
           url: mailto:niladrik@tamu.edu
         - name: Location
