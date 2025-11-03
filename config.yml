@@ -21,8 +21,8 @@ menu:
         - name: Contact
           url: contact/
           weight: 5 
-        - name: News
-          #url: location/
+        - name: Updates
+          url: /news/
           weight: 4 
 
 params:
@@ -52,8 +52,15 @@ params:
     math: true
     profileMode:
           enabled: true
-          title: Niladri Kal
-          subtitle: "Howdy! I am a Ph.D. student in the [Department of Statistics](https://artsci.tamu.edu/statistics/index.html) at Texas A&M University, advised by [Dr. Rajarshi Guhaniyogi](https://sites.google.com/view/rajguhaniyogi) and [Dr. Debdeep Pati](https://pages.stat.wisc.edu/~dpati2/). Before joining Texas A&M, I completed my master’s degree at the [Indian Statistical Institute](https://www.isical.ac.in) and my bachelor’s degree at [St. Xavier’s College (Autonomous), Kolkata](https://www.sxccal.edu/)."
+          title: Niladri Kal 
+          subtitle: |
+            <p style="margin-bottom:0.6rem; line-height:1.4;">Howdy! I am a Ph.D. student in the <a href="https://artsci.tamu.edu/statistics/index.html">Department of Statistics</a> at Texas A&M University, 
+            advised by <a href="https://sites.google.com/view/rajguhaniyogi">Dr. Rajarshi Guhaniyogi</a> and <a href="https://pages.stat.wisc.edu/~dpati2/">Dr. Debdeep Pati</a>. Before joining A&M, 
+            I earned my master’s from the <a href="https://www.isical.ac.in">Indian Statistical Institute</a> and my bachelor's from <a href="https://www.sxccal.edu/">St. Xavier’s College (Autonomous), Kolkata</a>.</p>
+            
+            <p style="margin-bottom:0rem; line-height:1.4;">My current research focuses on scalable Bayesian methodologies for federated setups and on high-dimensional structured modeling. 
+            In my spare time, I enjoy playing the piano, chasing the perfect light with my camera, and a quiet cup of chai.</p>
+                                
           imageUrl: "/ProfileNew.png"
           imageWidth: 180
           imageHeight: 180
@@ -62,8 +69,8 @@ params:
               url: /research/
             - name: Teaching
               url: /teaching/
-            - name: News
-              #url: tags/
+            - name: Updates
+              url: /news/
 
     socialIcons:
         - name: CV
@@ -85,7 +92,7 @@ params:
         hiddenInList: false
         hiddenInSingle: true
     label:
-      text: "Niladri Kal"
+      text: "Niladri Kal | নীলাদ্রি কাল"
       icon: tamu-favicon.png
       iconHeight: 18
 

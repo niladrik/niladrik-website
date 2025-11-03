@@ -509,3 +509,475 @@ body.dark .rk-pill.rk-external {
   .rk-year::after{ display:none; }
 }
 
+
+
+/* ===== Refined Elegant Updates (aligned, clean) ======================== */
+.ns-accord{
+  --ns-accent:#7a0019;
+  --ns-muted: color-mix(in srgb, currentColor 60%, transparent);
+  --ns-left:95px;                     /* tighter left gutter */
+  font-size:.93rem; line-height:1.35;
+  margin-top:.5rem;
+}
+
+/* Year section — simple spacing, no box */
+.ns-year{
+  position:relative;
+  display:block;
+  padding:.2rem 0 .8rem calc(var(--ns-left));
+  margin:1rem 0 1.3rem;
+  background:transparent;
+  border:none;
+}
+
+/* Clickable summary (removes arrow + extra padding) */
+.ns-year > summary{
+  cursor:pointer;
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-left:calc(-1*var(--ns-left));
+  padding-left:var(--ns-left);
+  padding-bottom:.1rem;
+}
+.ns-year > summary::-webkit-details-marker,
+.ns-year > summary::after { display:none !important; }
+
+/* Year label — stronger presence */
+.ns-yearlabel{
+  position:absolute;
+  left:0; top:0;
+  width:calc(var(--ns-left) - .5rem);
+  font-weight:800;
+  font-size:1.12rem;
+  color:var(--ns-accent);
+  letter-spacing:.02em;
+}
+
+/* Hide helper text */
+.ns-yearhint{ display:none !important; }
+
+/* Year list and vertical rail */
+.ns-list{
+  position:relative;
+  margin:.2rem 0 0;
+  padding:0;
+  list-style:none;
+}
+.ns-list::before{
+  content:"";
+  position:absolute;
+  left:-20px;
+  top:0.6rem;
+  bottom:0.6rem;
+  width:1.5px;
+  background:color-mix(in srgb, var(--ns-accent) 20%, transparent);
+}
+
+/* Each row perfectly aligned */
+.ns-list li{
+  position:relative;
+  display:grid;
+  grid-template-columns: 40px 1fr;   /* fixed month column */
+  gap:.7rem;
+  align-items:center;
+  padding:.55rem 0;
+}
+.ns-list li + li{
+  border-top:1px dashed color-mix(in srgb, currentColor 18%, transparent);
+}
+
+/* Month column */
+.ns-month{
+  text-align:right;
+  font-variant-numeric:tabular-nums;
+  color:var(--ns-muted);
+  font-weight:600;
+}
+
+/* Dot centered precisely on the rail */
+.ns-list li::before{
+  content:"";
+  position:absolute;
+  left:-23px;
+  top:50%;
+  transform:translateY(-50%);
+  width:8px; height:8px;
+  border-radius:50%;
+  background:var(--ns-accent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--ns-accent) 15%, transparent);
+}
+
+/* Description text */
+.ns-body{
+  color:color-mix(in srgb, currentColor 85%, transparent);
+}
+.ns-body a{ text-decoration:underline; color:inherit; }
+
+/* Subtle hover */
+.ns-list li:hover{
+  background:color-mix(in srgb, var(--ns-accent) 3%, transparent);
+}
+
+/* Responsive tweaks */
+@media(max-width:680px){
+  .ns-accord{ --ns-left:75px; font-size:.92rem; }
+  .ns-list::before{ left:-18px; }
+  .ns-list li::before{ left:-21px; }
+  .ns-list li{ grid-template-columns:32px 1fr; }
+}
+/* === Updates: final scoped overrides (PaperMod) ======================= */
+.post-content .ns-accord{
+  --ns-accent:#7a0019;
+  --ns-muted: color-mix(in srgb, currentColor 60%, transparent);
+  --ns-left:95px;
+  font-size:1.04rem !important;     /* bump size */
+  line-height:1.45 !important;
+}
+
+/* Year label size */
+.post-content .ns-yearlabel{
+  font-size:1.18rem !important;
+  font-weight:800 !important;
+  letter-spacing:.01em;
+  color:var(--ns-accent) !important;
+}
+
+/* Hide helper text + chevron */
+.post-content .ns-yearhint{ display:none !important; }
+.post-content details.ns-year > summary::-webkit-details-marker,
+.post-content details.ns-year > summary::after{ display:none !important; }
+
+/* Right column list + rail */
+.post-content .ns-list{
+  position:relative;
+  margin:.2rem 0 0; padding:0; list-style:none;
+}
+.post-content .ns-list::before{
+  content:"";
+  position:absolute;
+  left:-19px; top:.6rem; bottom:.6rem;
+  width:1.5px;
+  background:color-mix(in srgb, var(--ns-accent) 22%, transparent);
+}
+
+/* Rows: widen month col, align to baseline */
+.post-content .ns-list li{
+  position:relative;
+  display:grid;
+  grid-template-columns:46px 1fr !important;  /* wider month column */
+  gap:.7rem;
+  align-items:start !important;               /* baseline feel */
+  padding:.68rem 0 !important;                /* roomier */
+}
+.post-content .ns-list li + li{
+  border-top:1px dashed color-mix(in srgb, currentColor 15%, transparent);
+}
+
+/* Month number */
+.post-content .ns-month{
+  text-align:right;
+  font-variant-numeric:tabular-nums;
+  font-size:1.02rem !important;
+  font-weight:600;
+  color:var(--ns-muted);
+  transform:translateY(.06rem);               /* tiny baseline nudge */
+}
+
+/* Dots on the rail (restored) */
+.post-content .ns-list li::before{
+  content:"";
+  position:absolute;
+  left:-23px; top:50%; transform:translateY(-50%);
+  width:8px; height:8px; border-radius:50%;
+  background:var(--ns-accent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--ns-accent) 14%, transparent);
+}
+
+/* Body text a hair larger */
+.post-content .ns-body{ font-size:1.04rem !important; }
+
+/* Mobile tweaks */
+@media (max-width:680px){
+  .post-content .ns-accord{ --ns-left:75px; font-size:1.02rem !important; }
+  .post-content .ns-list::before{ left:-18px; }
+  .post-content .ns-list li::before{ left:-21px; }
+  .post-content .ns-list li{ grid-template-columns:38px 1fr !important; }
+}
+/* === Years as inline rail markers (no elbows) ========================== */
+/* rail color shared */
+.post-content .ns-accord{ --ns-rail: color-mix(in srgb, var(--ns-accent) 22%, transparent); }
+
+/* rail runs through the whole year block */
+.post-content .ns-list{
+  position: relative;
+  margin: .6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.post-content .ns-list::before{
+  content:"";
+  position:absolute;
+  left:-19px; top:-6px; bottom:-6px;   /* slight overshoot for clean ends */
+  width:1.5px; background:var(--ns-rail);
+  z-index:0;
+}
+
+/* YEAR LABEL sits centered on the rail */
+.post-content .ns-yearlabel{
+  position:absolute;
+  left: calc(var(--ns-left) - 19px);   /* x of the rail */
+  transform: translateX(-50%);         /* center it on the rail */
+  top: -0.2rem;                        /* adjust vertical to taste */
+  font-weight:800; font-size:1.12rem;
+  color: var(--ns-accent);
+  background: var(--theme);            /* mask the rail behind the text */
+  padding: .05rem .45rem;
+  border-radius: .35rem;
+  box-shadow: 0 0 0 .25rem var(--theme); /* extra mask ring for clarity */
+}
+
+/* keep summary clickable but invisible UI bits hidden */
+.post-content details.ns-year > summary{
+  cursor: pointer; list-style: none;
+  display: block; padding-bottom: .2rem;
+}
+.post-content details.ns-year > summary::-webkit-details-marker,
+.post-content details.ns-year > summary::after{ display:none !important; }
+
+/* rows (unchanged, but keep dots above the rail) */
+.post-content .ns-list li{
+  position:relative;
+  display:grid; grid-template-columns:46px 1fr;
+  gap:.7rem; align-items:start; padding:.68rem 0;
+  border-top:1px dashed color-mix(in srgb, currentColor 15%, transparent);
+}
+.post-content .ns-list li:first-child{ border-top:0; }
+
+.post-content .ns-month{
+  text-align:right; font-variant-numeric:tabular-nums;
+  font-weight:600; color:var(--ns-muted);
+}
+
+.post-content .ns-list li::before{
+  content:"";
+  position:absolute;
+  left:-23px; top:1.15em;              /* aligns near text baseline */
+  width:8px; height:8px; border-radius:50%;
+  background: var(--ns-accent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--ns-accent) 14%, transparent);
+  z-index:2;                           /* above the rail */
+}
+
+.post-content .ns-body{ font-size:1.04rem; }
+.post-content .ns-list li:hover{
+  background: color-mix(in srgb, var(--ns-accent) 3%, transparent);
+}
+
+/* mobile */
+@media (max-width:680px){
+  .post-content .ns-accord{ --ns-left:75px; }
+  .post-content .ns-yearlabel{ top:-.1rem; font-size:1.08rem; }
+  .post-content .ns-list::before{ left:-18px; }
+  .post-content .ns-list li::before{ left:-21px; }
+  .post-content .ns-list li{ grid-template-columns:38px 1fr; }
+}
+/* === Vertical balance tweak for timeline ============================== */
+
+/* lower the whole rail + dots a bit */
+.post-content .ns-list::before{
+  top: 6px !important;     /* previously -6px */
+  bottom: -6px !important;
+}
+
+/* dots: shift slightly downward with the text baseline */
+.post-content .ns-list li::before{
+  top: calc(50% + 4px) !important;   /* moves the dot down */
+}
+
+/* optional: more breathing room below the year label */
+.post-content .ns-year{
+  margin-top: 1.4rem !important;
+}
+
+/* optional: slightly more gap between year label and first row */
+.post-content .ns-list{
+  margin-top: .45rem !important;
+}
+/* === Vertically center each year label between timeline segments === */
+.post-content .ns-year {
+  display: flex;
+  align-items: center;
+  min-height: 6rem; /* adjust this depending on spacing between year blocks */
+  position: relative;
+}
+
+
+/* Ensure the timeline line stays continuous */
+.post-content .ns-list::before {
+  top: 0;
+  bottom: 0;
+}
+/* Add space below the page title on Updates page */
+.single-title,
+.post-title {
+  margin-bottom: 3rem;   /* adjust: try 2rem or 40px if you want more gap */
+}
+/* Trim ONLY the final year's rail so it doesn't extend past the last dot */
+.post-content .ns-year:last-of-type .ns-list {
+  position: relative;
+}
+.post-content .ns-year:last-of-type .ns-list::after{
+  content:"";
+  position:absolute;
+  left:-19px;            /* same x as your rail */
+  bottom:0;
+  width:1.5px;           /* same thickness as the rail */
+  height:19px;            /* ≈ dot(8px)/2 + ring(3px) → tweak 8–10px to taste */
+  background: var(--theme);   /* matches light/dark automatically */
+  z-index:1;             /* above the rail (which is z-index:0), below dots (z-index:2) */
+}
+/* Make the last rail stop at the dot center */
+.post-content .ns-year:last-of-type .ns-list::before{
+  bottom: 8px !important;        /* remove the -6px overshoot and stop where you want */
+}
+
+/* Collapse behavior: when a year is closed, no extra space remains */
+
+/* 1) Don't force a tall box when closed */
+.post-content details.ns-year { min-height: 0 !important; margin: 0 0 .6rem !important; }
+.post-content details.ns-year[open] { margin: 0 0 1.3rem !important; }  /* spacing when open */
+
+/* 2) Hide the list and the rail when closed */
+.post-content details.ns-year:not([open]) .ns-list { display: none !important; }
+.post-content details.ns-year:not([open]) .ns-list::before { display: none !important; }
+
+/* 3) If you added this earlier, override it so it doesn't force height */
+.post-content details.ns-year { display:block !important; align-items:unset !important; }
+.post-content details.ns-year h3,
+.post-content details.ns-year .ns-yearlabel {
+  transform:translateY(-60%) !important;   /* avoid vertical nudge when closed */
+  left:40px;                   /* keep your current label positioning if needed */
+}
+
+/* === Timeline colors adaptive to PaperMod theme toggle =============== */
+
+/* Light mode (default) */
+.post-content .ns-accord {
+  --ns-accent: #7a0019; /* TAMU maroon */
+  --ns-rail: color-mix(in srgb, var(--ns-accent) 22%, transparent);
+}
+
+/* Dark mode (PaperMod adds .dark on <body>) */
+body.dark .post-content .ns-accord {
+  --ns-accent: #ddd8d8; /* creamy white tone */
+  --ns-rail: color-mix(in srgb, var(--ns-accent) 70%, transparent);
+}
+
+/* Ensure the rail + dots actually use those vars */
+.post-content .ns-list::before {
+  background: var(--ns-rail) !important;
+}
+.post-content .ns-list li::before {
+  background: var(--ns-accent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ns-accent) 25%, transparent) !important;
+}
+
+/* --- Fix double underline under links in Updates timeline --- */
+.post-content .ns-body a {
+  text-decoration: none;              /* remove base underline */
+  border-bottom: 1px solid currentColor; /* keep a single clean underline */
+  padding-bottom: 1px;
+  transition: border-color .2s ease;
+}
+
+/* Hover state for consistency */
+.post-content .ns-body a:hover {
+  border-color: var(--ns-accent);
+}
+
+/* Optional: creamy white hover color in dark mode */
+body.dark .post-content .ns-body a:hover {
+  border-color: #ddd8d8;
+}
+/* === Year label emphasis ============================================ */
+.post-content .ns-yearlabel{
+  font-size: 1.35rem !important;   /* bolder, more readable */
+  font-weight: 850 !important;
+  letter-spacing: .02em;
+  color: var(--ns-accent);
+}
+
+/* Optional: even stronger in dark mode (so creamy white pops) */
+body.dark .post-content .ns-yearlabel{
+  color: #ddd8d8;
+}
+
+/* Smooth text-only animation (keeps rail/dots intact) */
+.post-content .ns-list li .ns-month,
+.post-content .ns-list li .ns-body{
+  transition: opacity .25s ease, transform .25s ease;
+  will-change: opacity, transform;
+}
+@media (prefers-reduced-motion: reduce){
+  .post-content .ns-list li .ns-month,
+  .post-content .ns-list li .ns-body{ transition: none !important; }
+}
+
+/* Bio links: animated underline with a clean gap, no clipping */
+.profile .profile_inner p a{
+  display: inline;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+
+  /* create the gap via padding, not by lowering the underline */
+  padding-bottom: 3px;                 /* the visible gap */
+  background-origin: content-box;      /* respect the padding for the underline */
+
+  background-image: linear-gradient(var(--nk-accent, #500000), var(--nk-accent, #500000));
+  background-repeat: no-repeat;
+  background-position: 0 118%;         /* sit at baseline */
+  background-size: 0% 2.4px;           /* full thickness, tweak 2.2–2.6px if needed */
+  transition: background-size .25s ease;
+}
+
+.profile .profile_inner p a:hover{
+  background-size: 100% 2.4px;
+}
+
+/* prevent double underline from the global ::after rule */
+.profile .profile_inner p a::after{ content:none !important; }
+
+/* Dark mode color */
+body.dark .profile .profile_inner p a{
+  background-image: linear-gradient(#ddd8d8, #ddd8d8);
+}
+
+
+/* === Control spacing between social icons === */
+.social-icons {
+  display: flex;
+  justify-content: center;  /* keeps them centered */
+  align-items: center;
+  gap: 0.1rem;              /* adjust this number for spacing (0.4rem = tighter, 1rem = wider) */
+}
+
+/* optional: if theme already sets margins, remove them */
+.social-icons a {
+  margin: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* optional: if icons look slightly misaligned */
+.social-icons svg {
+  vertical-align: middle;
+}
+
+
+
+
+
