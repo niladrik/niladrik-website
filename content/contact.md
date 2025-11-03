@@ -1,5 +1,5 @@
 ---
-#title: "Get in Touch"
+title: "Contact"
 date: 2025-10-21
 hidemeta: true
 hideTitle: true

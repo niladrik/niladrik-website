@@ -13,7 +13,7 @@ taxonomies:
 menu:
     main:
         - name: Research
-          url: papers/
+          url: /research/
           weight: 2
         - name: Teaching
           url: /teaching/
@@ -59,7 +59,7 @@ params:
           imageHeight: 180
           buttons:
             - name: Research
-              url: papers/
+              url: /research/
             - name: Teaching
               url: /teaching/
             - name: News

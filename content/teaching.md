@@ -1,5 +1,5 @@
 ---
-#title: "Teaching"
+title: "Teaching"
 layout: single
 showToc: false
 hideMeta: true 
