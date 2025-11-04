@@ -4,11 +4,16 @@ theme: PaperMod
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
+enableGitInfo: true
+
 pagination:
   pagerSize: 20
 
-taxonomies:
-    tag: tags
+#taxonomies:
+    #tag: tags
+disableKinds: ["taxonomy", "term"]
+ignoreFiles:
+  - "^content/(books|courses|data|papers)/"
 
 menu:
     main:
@@ -28,6 +33,13 @@ menu:
 params:
     description: "Niladri Kal – Ph.D. student in Statistics at Texas A&M University, developing scalable Bayesian methods for distributed computation."
     author: "Niladri Kal | Texas A&M University"
+    keywords:
+      - "Niladri Kal"
+      - "Texas A&M University"
+      - "Bayesian inference"
+      - "Distributed computation"
+      - "Federated learning"
+      - "Statistics"
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
     defaultTheme: auto
