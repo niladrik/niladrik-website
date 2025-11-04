@@ -13,7 +13,7 @@ pagination:
     #tag: tags
 disableKinds: ["taxonomy", "term"]
 ignoreFiles:
-  - "^content/(books|courses|data|papers)/"
+  - "^content/(books|courses|data|papers)(/|$)"
 
 menu:
     main:
@@ -131,6 +131,6 @@ markup:
 
 sitemap:
   filename: sitemap.xml
-  changefreq: weekly
+  changefreq: daily
   priority: 0.6
 
