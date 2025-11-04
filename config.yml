@@ -26,8 +26,8 @@ menu:
           weight: 4 
 
 params:
-    description: "Niladri's Homepage"
-    author: Niladri Kal
+    description: "Niladri Kal – Ph.D. student in Statistics at Texas A&M University, developing scalable Bayesian methods for distributed computation."
+    author: "Niladri Kal | Texas A&M University"
     # googleAnalyticsID: "G-XXXXX"
     DateFormat: "January 2006"
     defaultTheme: auto
@@ -116,3 +116,9 @@ markup:
         endLevel: 2
         ordered: false
         startLevel: 2
+
+sitemap:
+  filename: sitemap.xml
+  changefreq: weekly
+  priority: 0.6
+
