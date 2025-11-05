@@ -978,6 +978,19 @@ body.dark .profile .profile_inner p a{
 }
 
 
+/* Prevent the year label from wrapping on mobile */
+.ns-yearlabel {
+  white-space: nowrap;     /* keep year on one line */
+  flex-shrink: 0;          /* don't let it compress */
+}
+
+/* Optional: nudge spacing on smaller screens */
+@media (max-width: 600px) {
+  .ns-yearlabel {
+    font-size: 0.95rem;    /* slightly smaller text */
+    margin-right: 0.3rem;  /* a bit more breathing room */
+  }
+}
 
 
 
