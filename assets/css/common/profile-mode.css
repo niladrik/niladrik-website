@@ -3,6 +3,10 @@
   --footer-height: 40px;            /* adjust to your real footer height */
   --hero-outer-pad: 6vh;   /* symmetric top/bottom padding for the whole hero */
   --hero-gap: 0.9rem;      /* uniform gap between rows inside the hero */
+  /* mobile tuning knobs */
+  --mobile-avatar-size: 220px;
+  --mobile-icon-size: 28px;
+  --mobile-icon-gap: 14px;
 }
 
 
@@ -11,23 +15,7 @@
   display: block;
 }
 
-/* Homepage hero: centered, leaving room for footer and equal padding */
-.main .profile{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  /* Leave room for footer and apply equal top/bottom padding */
-  --hero-outer-pad: 6vh;               /* symmetric padding */
-  min-height: calc(100svh - var(--footer-height) - 0. * var(--hero-outer-pad));
-  padding-block: var(--hero-outer-pad);
-  padding-inline: var(--gap);
-
-  font-size: var(--homesize);
-  line-height: var(--lineheight);
-  box-sizing: border-box;
-}
 
 
 /* Fallback for browsers without svh */
@@ -37,7 +25,9 @@
   }
 }
 
-
+/* =========================
+   Grid + core pieces
+   ========================= */
 .profile .profile_inner h1 {
     font-size: 2.5rem;
 }
@@ -170,7 +160,12 @@
 
 /* Small tablets / large phones */
 @media (max-width: 768px){
-  .profile .profile_inner h1{ font-size:2.2rem; }
+  .profile .profile_inner h1{
+    font-size:clamp(2.4rem,7.8vw,3.0rem);
+    line-height:1.1;
+    font-weight:700;
+    text-align:center;
+  }
   .profile .profile_inner > img{ width:160px; height:160px; }
   .profile .profile_inner > span,
   .profile .profile_inner > .subtitle{ max-width: 640px; line-height:1.7; }
@@ -178,11 +173,29 @@
 
 /* Phones */
 @media (max-width: 480px){
-  .profile .profile_inner h1{ font-size:1.9rem; }
-  .profile .profile_inner > img{ width:140px; height:140px; }
-  .profile .profile_inner > .social-icons a svg{ width:18px; height:18px; }
-  .profile .profile_inner > span,
-  .profile .profile_inner > .subtitle{ max-width: 90vw; }
+  .profile .profile_inner h1{
+    font-size:clamp(2.6rem,9.5vw,3.2rem);
+    line-height:1.08;
+    font-weight:700;
+    text-align:center;
+    margin-top:.4rem;
+  }
+  .profile .profile_inner > img{
+    width:220px;
+    height:220px;
+    border-radius:24px;
+  }
+  .profile .profile_inner > .social-icons a svg{
+  width:28px;
+  height:28px;
+  stroke-width:2.1;
+}
+  .profile .profile_inner > span{
+    max-width: 90vw;
+    font-size: 1.02rem;   /* make bio a touch smaller than default */
+    line-height: 1.6;     /* slightly tighter than desktop */
+  }
+
 }
 
 /* === Balanced vertical rhythm inside the hero === */
@@ -192,7 +205,7 @@
 
 
 
-/* Optional: tiny cushion under buttons for optical balance */
+/* Tiny cushion under buttons for optical balance */
 .profile .profile_inner > .buttons {
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
@@ -294,4 +307,24 @@
 }
 
 
+/* Stronger title hierarchy + lighter bio */
+.profile .profile_inner h1 {
+  font-size: 3.2rem;          /* was 2.5rem */
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.3rem;
+  color: var(--primary);
+}
+
+/* Apply to your actual span-based bio text */
+.profile .profile_inner > span {
+  font-size: 0.97rem;         /* slightly smaller than default */
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--secondary) 90%, black 10%);
+  font-weight: 400;
+  text-align: justify;
+  max-width: 850px;
+  margin: 0 auto 1.2rem;
+}
 

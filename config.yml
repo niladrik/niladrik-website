@@ -292,8 +292,8 @@ params:
 
                                
           imageUrl: "/images/ProfilePic.JPG"
-          imageWidth: 180
-          imageHeight: 180
+          imageWidth: 220
+          imageHeight: 220
           buttons:
             - name: Research
               url: /research/
