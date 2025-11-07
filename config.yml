@@ -116,6 +116,10 @@ params:
 
     customCSS:
         - css/extended/custom.css
+    #    - css/extended/bio-typewriter.css    
+
+    #customJS:
+    #    - js/extended/bio-typewriter.js      
 
 markup:
     goldmark:

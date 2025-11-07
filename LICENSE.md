@@ -1,6 +1,8 @@
 MIT License
 
-Copyright (c) 2023–present Pascal Michaillat  
+Copyright (c) 2025–present Niladri Kal
+Originally based on the Hugo theme by Pascal Michaillat (c) 2023–present
+
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

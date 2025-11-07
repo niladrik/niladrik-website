@@ -1,22 +1,42 @@
-.buttons,
-.main .profile {
-    display: flex;
-    justify-content: left;
-}
-.main .profile {
-    align-items: center;
-    min-height: calc(100vh - var(--footer-height) - (var(--gap) * 2));
-    font-size: var(--homesize);
-    line-height: var(--lineheight);
-    padding: var(--gap);
+/* Tell the hero how much space to leave for the footer */
+:root{
+  --footer-height: 40px;            /* adjust to your real footer height */
+  --hero-outer-pad: 6vh;   /* symmetric top/bottom padding for the whole hero */
+  --hero-gap: 0.9rem;      /* uniform gap between rows inside the hero */
 }
 
-.profile .profile_inner {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+
+/* .main doesn’t need to be flex if body isn’t flex */
+.main{
+  display: block;
 }
+
+/* Homepage hero: centered, leaving room for footer and equal padding */
+.main .profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Leave room for footer and apply equal top/bottom padding */
+  --hero-outer-pad: 6vh;               /* symmetric padding */
+  min-height: calc(100svh - var(--footer-height) - 0.2 * var(--hero-outer-pad));
+  padding-block: var(--hero-outer-pad);
+  padding-inline: var(--gap);
+
+  font-size: var(--homesize);
+  line-height: var(--lineheight);
+  box-sizing: border-box;
+}
+
+
+/* Fallback for browsers without svh */
+@supports not (height: 1svh){
+  .main .profile{
+    min-height: calc(100vh - var(--footer-height));
+  }
+}
+
 
 .profile .profile_inner h1 {
     font-size: 2.5rem;
@@ -44,4 +64,155 @@
 
 .button:hover {
     background: var(--lightcolor);
+}
+
+/* =========================
+   Home hero (single-column)
+   ========================= */
+
+/* Center the whole hero block */
+.main .profile{
+  align-items:center;
+  justify-content:center;
+}
+
+/* Grid for the actual children */
+.profile .profile_inner{
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-areas:
+    "img"
+    "title"
+    "icons"
+    "bio"
+    "buttons";
+  justify-items:center;         /* centers image/title/icons/buttons as items */
+  row-gap:.6rem;
+  gap:10px;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+/* 1) Image */
+.profile .profile_inner > img{
+  grid-area:img;
+  display:block;
+  margin:0 auto .8rem;
+  border-radius:35%;
+  border:1px solid var(--tertiary);
+}
+
+/* 2) Title */
+.profile .profile_inner > .title{
+  grid-area:title;
+  display:inline-block;         /* shrink to content */
+  justify-self:center;          /* center the grid item itself */
+  text-align:center;
+  margin:0 0 .6rem;
+  text-wrap:balance;            /* nicer multi-line titles (modern browsers) */
+}
+
+/* 3) Social icons (centered under title) */
+.profile .profile_inner > .social-icons{
+  grid-area:icons;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.5rem;
+  width:100%;
+  margin:.2rem 0 .6rem;
+}
+.profile .profile_inner > .social-icons a{ padding:0; }
+.profile .profile_inner > .social-icons a svg{
+  width:22px;                   /* tune icon size */
+  height:22px;
+}
+
+/* 4) Bio text — your site uses a <span>; keep .subtitle as fallback */
+.profile .profile_inner > span,
+.profile .profile_inner > .subtitle{
+  grid-area:bio;
+  display:block;
+  /* readable + balanced: centered container, justified text */
+  max-width:850px;              /* wider box so justification looks natural */
+  margin:0 auto 1.2rem;
+  text-align:justify;
+  text-justify:inter-word;
+  line-height:1.75;
+  color:var(--secondary);
+  font-weight:400;
+}
+/* tidy paragraph spacing if the span wraps <p> */
+.profile .profile_inner > span p,
+.profile .profile_inner > .subtitle p{
+  margin:0 0 .8rem;
+}
+
+/* 5) Buttons (centered) */
+.profile .profile_inner > .buttons{
+  grid-area:buttons;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.8rem;
+  width:100%;
+  margin-top:.4rem;
+}
+
+/* Title size (keep your tweak) */
+.profile .profile_inner h1{ font-size:2.5rem; }
+
+/* =========================
+   Responsive refinements
+   ========================= */
+
+/* Medium screens: slightly tighter text box, slightly larger icons */
+@media (max-width: 1024px){
+  .profile .profile_inner > span,
+  .profile .profile_inner > .subtitle{ max-width: 720px; }
+  .profile .profile_inner > .social-icons a svg{ width:20px; height:20px; }
+}
+
+/* Small tablets / large phones */
+@media (max-width: 768px){
+  .profile .profile_inner h1{ font-size:2.2rem; }
+  .profile .profile_inner > img{ width:160px; height:160px; }
+  .profile .profile_inner > span,
+  .profile .profile_inner > .subtitle{ max-width: 640px; line-height:1.7; }
+}
+
+/* Phones */
+@media (max-width: 480px){
+  .profile .profile_inner h1{ font-size:1.9rem; }
+  .profile .profile_inner > img{ width:140px; height:140px; }
+  .profile .profile_inner > .social-icons a svg{ width:18px; height:18px; }
+  .profile .profile_inner > span,
+  .profile .profile_inner > .subtitle{ max-width: 90vw; }
+}
+
+/* === Balanced vertical rhythm inside the hero === */
+.profile .profile_inner {
+  row-gap: 0.9rem;                     /* consistent spacing between items */
+}
+
+/* Remove inner margins so row-gap controls vertical spacing */
+.profile .profile_inner > * {
+  margin: 0 !important;
+}
+
+/* Adjust paragraph rhythm only inside the bio */
+.profile .profile_inner > span p,
+.profile .profile_inner > .subtitle p {
+  margin-top: 1rem;
+  
+}
+.profile .profile_inner > span p:last-child,
+.profile .profile_inner > .subtitle p:last-child {
+  margin-bottom: 1rem;
+}
+
+/* Optional: tiny cushion under buttons for optical balance */
+.profile .profile_inner > .buttons {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
