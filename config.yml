@@ -71,9 +71,9 @@ params:
             I earned my master’s from the <a href="https://www.isical.ac.in">Indian Statistical Institute</a> and my bachelor's from <a href="https://www.sxccal.edu/">St. Xavier’s College (Autonomous), Kolkata</a>.</p>
             
             <p style="margin-bottom:0rem; line-height:1.4;">My current research focuses on scalable Bayesian methodologies for federated setups and on high-dimensional structured modeling. 
-            In my spare time, I enjoy playing the piano, chasing the perfect light with my camera, and a quiet cup of chai.</p>
+            In my spare time, I enjoy playing the piano, exploring photography, and a quiet cup of chai.</p>
                                 
-          imageUrl: "/ProfileNew.png"
+          imageUrl: "/img/ProfilePic.JPG"
           imageWidth: 180
           imageHeight: 180
           buttons:
