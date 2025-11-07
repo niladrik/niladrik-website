@@ -14,7 +14,7 @@ hideMeta: true
     </summary>
 
 <ul class="ns-list">
-    <li>
+ <!-- <li>
   <span class="ns-month" id="visit-date"></span>
   <span class="ns-body fun">Someone (yes, <em>you</em>!) checked out this website. Thanks for stopping by! :P</span>
 </li>
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = now.toLocaleDateString("en-US", options);
   }
 });
-</script>
+</script> -->
     <li><span class="ns-month">Oct</span><span class="ns-body">Website launched.</span></li>
     <li><span class="ns-month">Aug</span><span class="ns-body">Preprint available for <em>Adaptive Divide and Conquer with Two Rounds of Communication</em> (Kal et&nbsp;al., 2025). [<a href="https://arxiv.org/abs/2508.17073" target="_blank" rel="noopener">arXiv</a>]</span></li>
     <li><span class="ns-month">Jun</span><span class="ns-body"> Received the Student Poster Award at the <em>2025 IISA Conference</em>.</span></li>

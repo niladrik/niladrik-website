@@ -994,3 +994,14 @@ body.dark .profile .profile_inner p a{
 
 
 
+/* blinking caret animation */
+.bio-caret {
+  display: inline-block;
+  width: 1ch;
+  color: inherit;
+  animation: bio-caret-blink 1s steps(1) infinite;
+}
+
+@keyframes bio-caret-blink {
+  50% { opacity: 0; }
+}

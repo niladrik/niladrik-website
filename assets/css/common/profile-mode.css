@@ -20,7 +20,7 @@
 
   /* Leave room for footer and apply equal top/bottom padding */
   --hero-outer-pad: 6vh;               /* symmetric padding */
-  min-height: calc(100svh - var(--footer-height) - 0.2 * var(--hero-outer-pad));
+  min-height: calc(100svh - var(--footer-height) - 0. * var(--hero-outer-pad));
   padding-block: var(--hero-outer-pad);
   padding-inline: var(--gap);
 
@@ -142,11 +142,6 @@
   color:var(--secondary);
   font-weight:400;
 }
-/* tidy paragraph spacing if the span wraps <p> */
-.profile .profile_inner > span p,
-.profile .profile_inner > .subtitle p{
-  margin:0 0 .8rem;
-}
 
 /* 5) Buttons (centered) */
 .profile .profile_inner > .buttons{
@@ -195,24 +190,108 @@
   row-gap: 0.9rem;                     /* consistent spacing between items */
 }
 
-/* Remove inner margins so row-gap controls vertical spacing */
-.profile .profile_inner > * {
-  margin: 0 !important;
-}
 
-/* Adjust paragraph rhythm only inside the bio */
-.profile .profile_inner > span p,
-.profile .profile_inner > .subtitle p {
-  margin-top: 1rem;
-  
-}
-.profile .profile_inner > span p:last-child,
-.profile .profile_inner > .subtitle p:last-child {
-  margin-bottom: 1rem;
-}
 
 /* Optional: tiny cushion under buttons for optical balance */
 .profile .profile_inner > .buttons {
   margin-top: 0.5rem !important;
   margin-bottom: 0.5rem !important;
 }
+/* === Typing Animation Core === */
+
+/* Host becomes positioning context during typing */
+.bio-typing-host {
+  position: relative;
+}
+
+/* Ghost keeps final geometry (width/line breaks/paragraph margins) */
+.bio-ghost {
+  visibility: hidden;
+  opacity: 1; /* real content, invisible until fade-in */
+}
+
+/* Overlay sits on top and inherits all typography */
+.bio-overlay {
+  position: absolute;
+  inset: 0;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 260ms linear; /* fade opacity, not color */
+}
+
+/* Typed lines inside overlay */
+.bio-overlay .typed-line,
+.bio-overlay .typed-current {
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+}
+
+/* Gap between paragraphs — must match final p{margin-bottom} */
+.bio-overlay .typed-paragraph-gap {
+  display: block;
+  height: 1rem;  /* adjust if your real paragraph spacing differs */
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional caret logic (if used) */
+#bio-typer {
+  display: block;
+  white-space: pre-wrap;
+  text-align: justify;
+  text-align-last: justify;
+}
+#bio-typer::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+#bio-caret {
+  display: inline-block;
+  margin-left: 2px;
+  animation: bio-caret-blink 1s steps(1) infinite;
+}
+@keyframes bio-caret-blink {
+  50% { opacity: 0; }
+}
+
+/* === Final bio paragraph spacing (matches typing overlay) === */
+.profile .profile_inner > span p,
+.profile .profile_inner > .subtitle p {
+  margin: 0 0 1rem;  /* bottom-only spacing */
+  line-height: 1.75;
+}
+
+/* Last paragraph: no extra gap after */
+.profile .profile_inner > span p:last-child,
+.profile .profile_inner > .subtitle p:last-child {
+  margin-bottom: 0;
+}
+
+/* Typing overlay uses identical spacing */
+.bio-overlay .typed-paragraph-gap {
+  height: 1rem;
+}
+
+/* Center the hero exactly in the viewport (minus footer) */
+.main .profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Use full height minus footer; don't mix padding into the calc */
+  min-height: calc(100svh - var(--footer-height));
+  padding-block: var(--hero-outer-pad);   /* keep the visual cushion, but */
+  box-sizing: border-box;                 /* ensure it doesn't break centering */
+}
+@supports not (height: 1svh){
+  .main .profile{ min-height: calc(100vh - var(--footer-height)); }
+}
+
+
+

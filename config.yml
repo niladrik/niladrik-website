@@ -66,13 +66,231 @@ params:
           enabled: true
           title: Niladri Kal 
           subtitle: |
-            <p style="margin-bottom:0.6rem; line-height:1.4;">Howdy! I am a Ph.D. student in the <a href="https://artsci.tamu.edu/statistics/index.html">Department of Statistics</a> at Texas A&M University, 
-            advised by <a href="https://sites.google.com/view/rajguhaniyogi">Dr. Rajarshi Guhaniyogi</a> and <a href="https://pages.stat.wisc.edu/~dpati2/">Dr. Debdeep Pati</a>. Before joining A&M, 
-            I earned my master’s from the <a href="https://www.isical.ac.in">Indian Statistical Institute</a> and my bachelor's from <a href="https://www.sxccal.edu/">St. Xavier’s College (Autonomous), Kolkata</a>.</p>
-            
-            <p style="margin-bottom:0rem; line-height:1.4;">My current research focuses on scalable Bayesian methodologies for federated setups and on high-dimensional structured modeling. 
-            In my spare time, I enjoy playing the piano, exploring photography, and a quiet cup of chai.</p>
-                                
+            <p>Howdy! I am a Ph.D. student in the <a href="https://artsci.tamu.edu/statistics/index.html">Department of Statistics</a> at Texas A&amp;M University, advised by <a href="https://sites.google.com/view/rajguhaniyogi">Dr. Rajarshi Guhaniyogi</a> and <a href="https://pages.stat.wisc.edu/~dpati2/">Dr. Debdeep Pati</a>. Before joining A&amp;M, I earned my master’s from the <a href="https://www.isical.ac.in">Indian Statistical Institute</a> and my bachelor's from <a href="https://www.sxccal.edu/">St. Xavier’s College (Autonomous), Kolkata</a>.</p>
+
+            <p>My current research focuses on scalable Bayesian methodologies for federated setups and on high-dimensional structured modeling. In my spare time, I enjoy playing the piano, exploring photography, and a quiet cup of chai.</p>
+
+            <script>
+            (function () {
+              var TYPE_DELAY_MS  = 44;
+              var START_DELAY_MS = 220;
+              var SENTENCE_PAUSE = 170;
+
+              var host = document.currentScript && document.currentScript.parentElement;
+              if (!host) return;
+
+              function stripScriptsAndStyles(el){
+                var c = el.cloneNode(true);
+                c.querySelectorAll('script,style').forEach(function(n){ n.remove(); });
+                return c;
+              }
+              var ABBR = new Set(['Dr.','Mr.','Ms.','Mrs.','Prof.','Sr.','Jr.','Ph.D.','PhD.','M.S.','M.Sc.','B.Sc.','B.S.','B.Tech.','i.e.','e.g.','vs.','etc.']);
+              function isSentenceBoundary(text, i){
+                var ch = text[i];
+                if (ch === '?' || ch === '!') return true;
+                if (ch !== '.') return false;
+                var s = i; while (s > 0 && /[A-Za-z.]/.test(text[s-1])) s--;
+                var token = text.slice(s, i+1);
+                if (ABBR.has(token)) return false;
+                var j = i + 1; while (j < text.length && /\s/.test(text[j])) j++;
+                if (j >= text.length) return true;
+                return /[A-Z]/.test(text[j]);
+              }
+
+              (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function start() {
+                var originalHTML = host.innerHTML;
+                var marker = 'data-bio-script-marker';
+                if (document.currentScript && document.currentScript.setAttribute) {
+                  document.currentScript.setAttribute(marker,'1');
+                  originalHTML = originalHTML.replace(new RegExp('<script[^>]*'+marker+'[^>]*>[\\s\\S]*?<\\/script>'), '');
+                }
+
+                host.classList.add('bio-typing-host','typing');
+                host.style.position = 'relative';
+
+                var ghost = stripScriptsAndStyles(host);
+                ghost.className = (ghost.className ? ghost.className + ' ' : '') + 'bio-ghost';
+                host.innerHTML = '';
+                host.appendChild(ghost);
+
+                ghost.style.visibility = 'hidden';
+                ghost.style.display = 'block';
+                ghost.style.position = 'relative';
+                host.style.minHeight = ghost.offsetHeight + 'px';
+
+                var overlay = document.createElement('div');
+                overlay.className = 'bio-overlay bio-fade';
+                overlay.style.position = 'absolute';
+                overlay.style.inset = '0';
+                overlay.style.pointerEvents = 'none';
+                overlay.style.zIndex = '1';
+                overlay.style.opacity = '1';
+                overlay.style.transition = 'opacity 220ms linear';
+
+                var past = document.createElement('div');
+                past.className = 'typed-past';
+                var current = document.createElement('div');
+                current.className = 'typed-current';
+                overlay.appendChild(past);
+                overlay.appendChild(current);
+                host.appendChild(overlay);
+
+                var basis = ghost.querySelector('p') || ghost;
+                var cs = window.getComputedStyle(basis);
+                function setMetrics(el){
+                  el.style.fontFamily          = cs.fontFamily;
+                  el.style.fontSize            = cs.fontSize;
+                  el.style.fontWeight          = cs.fontWeight;
+                  el.style.fontStyle           = cs.fontStyle;
+                  el.style.fontStretch         = cs.fontStretch || '';
+                  el.style.lineHeight          = cs.lineHeight;
+                  el.style.letterSpacing       = cs.letterSpacing;
+                  el.style.wordSpacing         = cs.wordSpacing;
+                  el.style.textTransform       = cs.textTransform;
+                  el.style.fontFeatureSettings = cs.fontFeatureSettings;
+                  el.style.webkitFontSmoothing = cs.webkitFontSmoothing || '';
+                  el.style.textAlign           = cs.textAlign;
+                  el.style.textJustify         = cs.textJustify || '';
+                }
+                setMetrics(overlay);
+                setMetrics(past);
+                setMetrics(current);
+
+                // ---------- NEW: paragraph-aware typing ----------
+                // Collect paragraphs/div blocks in order + their exact bottom margins
+                var blocks = Array.from(ghost.querySelectorAll('p,div')).filter(function(el){
+                  // only blocks that actually contribute text
+                  return (el.textContent || '').trim().length > 0;
+                });
+                if (blocks.length === 0) blocks = [ghost];
+
+                var texts = blocks.map(function(b){ return (b.textContent || '').replace(/\r/g,''); });
+                var gaps  = blocks.map(function(b){ return window.getComputedStyle(b).marginBottom || '0px'; });
+                var firstTop = window.getComputedStyle(blocks[0]).marginTop || '0px';
+                var lastBottom = window.getComputedStyle(blocks[blocks.length-1]).marginBottom || '0px';
+
+                // Preserve outer margins visually while typing
+                overlay.style.paddingTop = firstTop;
+                // --- Simulate collapsed space after the last paragraph ---
+                // 1) find last non-empty block (p/div) inside the ghost
+                var blocksAll = Array.from(ghost.querySelectorAll('p,div'));
+                var lastBlock = (function(){
+                  for (var k = blocksAll.length - 1; k >= 0; k--) {
+                    if ((blocksAll[k].textContent || '').trim().length) return blocksAll[k];
+                  }
+                  return ghost;
+                })();
+
+                // 2) read last paragraph's bottom margin
+                var lastCS = window.getComputedStyle(lastBlock);
+                var lastBottom = lastCS.marginBottom || '0px';
+
+                // 3) read the *next sibling*’s top margin (e.g., your .buttons block)
+                var next = host.nextElementSibling;
+                var nextTop = next ? window.getComputedStyle(next).marginTop : '0px';
+
+                // 4) collapsed margin between last <p> and .buttons is max(bottom,lastTop)
+                function toPx(v){ return parseFloat(v) || 0; }
+                var collapsedAfter = Math.max(toPx(lastBottom), toPx(nextTop));
+
+                // 5) apply as overlay bottom padding so typing view matches final layout
+                overlay.style.paddingBottom = collapsedAfter + 'px';
+
+
+                // Nothing to type?
+                var nonEmpty = texts.join('').trim();
+                if (!nonEmpty) {
+                  ghost.style.visibility = 'visible';
+                  overlay.remove();
+                  host.classList.remove('typing');
+                  host.style.minHeight = '';
+                  return;
+                }
+
+                var p = 0;      // paragraph index
+                var i = 0;      // char index within current paragraph
+                var currentLine = '';
+
+                function commitLine(text){
+                  if (!text) return;
+                  var lineEl = document.createElement('div');
+                  lineEl.className = 'typed-line';
+                  lineEl.textContent = text;
+                  lineEl.style.margin = '0';
+                  lineEl.style.padding = '0';
+                  past.appendChild(lineEl);
+                }
+                function addGap(px){
+                  if (!px || px === '0' || px === '0px') return; // no gap if paragraph margin is zero
+                  var gap = document.createElement('div');
+                  gap.className = 'typed-paragraph-gap';
+                  gap.style.display = 'block';
+                  gap.style.height = px;
+                  gap.style.margin = '0';
+                  gap.style.padding = '0';
+                  past.appendChild(gap);
+                }
+                function nextDelay(){
+                  var base = TYPE_DELAY_MS;
+                  var curText = texts[p] || '';
+                  if (i > 0 && isSentenceBoundary(curText, i-1)) base += SENTENCE_PAUSE;
+                  return base;
+                }
+
+                setTimeout(function tick(){
+                  // finished all paragraphs
+                  if (p >= texts.length) {
+                    if (currentLine) commitLine(currentLine);
+                    ghost.style.visibility = 'visible';
+                    overlay.style.opacity  = '0';
+                    setTimeout(function(){
+                      overlay.remove();
+                      host.classList.remove('typing');
+                      host.style.minHeight = '';
+                    }, 240);
+                    return;
+                  }
+
+                  var t = texts[p];
+
+                  // finished current paragraph -> commit, add its real margin as gap, move to next
+                  if (i >= t.length) {
+                    if (currentLine) {
+                      commitLine(currentLine);
+                      currentLine = '';
+                      current.textContent = '';
+                    }
+                    // add the paragraph's own bottom margin as the gap (except after the last one:
+                    if (p < texts.length - 1) addGap(gaps[p]);
+                    p++; i = 0;
+                    setTimeout(tick, nextDelay());
+                    return;
+                  }
+
+                  var ch = t[i++];
+
+                  var before = currentLine;
+                  currentLine += ch;
+                  current.textContent = currentLine;
+
+                  // If active line wrapped, commit previous and start new one
+                  if (current.getClientRects().length > 1) {
+                    commitLine(before);
+                    currentLine = ch;
+                    current.textContent = currentLine;
+                  }
+
+                  setTimeout(tick, nextDelay());
+                }, START_DELAY_MS);
+                // ---------- /NEW ----------
+              });
+            })();
+            </script>
+
+
+
+
+                               
           imageUrl: "/images/ProfilePic.JPG"
           imageWidth: 180
           imageHeight: 180
@@ -86,7 +304,7 @@ params:
 
     socialIcons:
         - name: CV
-          #url: cv.pdf
+          #url: cv.pdf 
         - name: Email
           url: mailto:niladrik@tamu.edu
         - name: Location
@@ -115,11 +333,7 @@ params:
       iconHeight: 18
 
     customCSS:
-        - css/extended/custom.css
-    #    - css/extended/bio-typewriter.css    
-
-    #customJS:
-    #    - js/extended/bio-typewriter.js      
+        - css/extended/custom.css   
 
 markup:
     goldmark:
