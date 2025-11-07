@@ -73,7 +73,7 @@ params:
             <p style="margin-bottom:0rem; line-height:1.4;">My current research focuses on scalable Bayesian methodologies for federated setups and on high-dimensional structured modeling. 
             In my spare time, I enjoy playing the piano, exploring photography, and a quiet cup of chai.</p>
                                 
-          imageUrl: "/img/ProfilePic.JPG"
+          imageUrl: "/images/ProfilePic.JPG"
           imageWidth: 180
           imageHeight: 180
           buttons:
