@@ -174,7 +174,7 @@
 /* Phones */
 @media (max-width: 480px){
   .profile .profile_inner h1{
-    font-size:clamp(2.6rem,9.5vw,3.2rem);
+    font-size:clamp(2.5rem,8.5vw,2.9rem);
     line-height:1.08;
     font-weight:700;
     text-align:center;
@@ -183,12 +183,12 @@
   .profile .profile_inner > img{
     width:220px;
     height:220px;
-    border-radius:24px;
+    border-radius:35%;
   }
   .profile .profile_inner > .social-icons a svg{
-  width:28px;
-  height:28px;
-  stroke-width:2.1;
+  width:22px;
+  height:22px;
+  stroke-width:1.8;
 }
   .profile .profile_inner > span{
     max-width: 90vw;
@@ -196,6 +196,12 @@
     line-height: 1.6;     /* slightly tighter than desktop */
   }
 
+  .profile .buttons .button {
+    font-size: 0.95rem;      /* slightly smaller text */
+    padding: 0.55rem 0.9rem; /* less padding */
+    /* border-radius: 6px;       visually tighter corners */
+    margin: 4px 8px;         /* lighter spacing */
+  }
 }
 
 /* === Balanced vertical rhythm inside the hero === */
