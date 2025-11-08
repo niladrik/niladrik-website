@@ -33,6 +33,9 @@ menu:
 params:
     description: "Niladri Kal – Ph.D. student in Statistics at Texas A&M University, developing scalable Bayesian methods for distributed computation."
     author: "Niladri Kal | Texas A&M University"
+    env: production          # makes PaperMod output full meta tags
+    images:
+      - "https://niladrik.github.io/images/og/niladri-card.jpg"
     keywords:
       - "Niladri Kal"
       - "Texas A&M University"
