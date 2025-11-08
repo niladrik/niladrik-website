@@ -114,8 +114,8 @@
 }
 .profile .profile_inner > .social-icons a{ padding:0; }
 .profile .profile_inner > .social-icons a svg{
-  width:22px;                   /* tune icon size */
-  height:22px;
+  width:24px;                   /* tune icon size */
+  height:24px;
 }
 
 /* 4) Bio text — your site uses a <span>; keep .subtitle as fallback */
@@ -186,8 +186,8 @@
     border-radius:35%;
   }
   .profile .profile_inner > .social-icons a svg{
-  width:22px;
-  height:22px;
+  width:24px;
+  height:24px;
   stroke-width:1.8;
 }
   .profile .profile_inner > span{

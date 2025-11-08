@@ -125,7 +125,7 @@ params:
                 overlay.style.pointerEvents = 'none';
                 overlay.style.zIndex = '1';
                 overlay.style.opacity = '1';
-                overlay.style.transition = 'opacity 220ms linear';
+                overlay.style.transition = 'opacity 600ms linear';
 
                 var past = document.createElement('div');
                 past.className = 'typed-past';
@@ -211,6 +211,13 @@ params:
                 var i = 0;      // char index within current paragraph
                 var currentLine = '';
 
+                // === NEW: state + scheduler so we can cancel on click ===
+                var finished = false;
+                var activeTimer = null;
+                function schedule(ms){ activeTimer = setTimeout(tick, ms); }
+                function cancelTimer(){ if (activeTimer) { clearTimeout(activeTimer); activeTimer = null; } }
+
+
                 function commitLine(text){
                   if (!text) return;
                   var lineEl = document.createElement('div');
@@ -237,7 +244,36 @@ params:
                   return base;
                 }
 
-                setTimeout(function tick(){
+                // === NEW: click-to-stop + fade-in full text ===
+                function revealNow(){
+                  if (finished) return;
+                  finished = true;
+                  cancelTimer();
+
+                  if (currentLine) {
+                    commitLine(currentLine);
+                    currentLine = '';
+                    current.textContent = '';
+                  }
+
+                  // trigger the existing overlay fade-out
+                  setTimeout(() => {
+                    ghost.style.visibility = 'visible';
+                    overlay.style.opacity  = '0';
+                  }, 200); // 150 ms delay before fading out
+
+                  // clean up after fade completes
+                  setTimeout(function(){
+                    overlay.remove();
+                    host.classList.remove('typing');
+                    host.style.minHeight = '';
+                  }, 240);
+
+                  // avoid repeated triggers
+                  host.removeEventListener('click', revealNow);
+                }
+
+                function tick(){
                   // finished all paragraphs
                   if (p >= texts.length) {
                     if (currentLine) commitLine(currentLine);
@@ -248,6 +284,7 @@ params:
                       host.classList.remove('typing');
                       host.style.minHeight = '';
                     }, 240);
+                    finished = true;   // NEW: mark typing as done
                     return;
                   }
 
@@ -263,7 +300,7 @@ params:
                     // add the paragraph's own bottom margin as the gap (except after the last one:
                     if (p < texts.length - 1) addGap(gaps[p]);
                     p++; i = 0;
-                    setTimeout(tick, nextDelay());
+                    schedule(nextDelay());   // NEW
                     return;
                   }
 
@@ -280,8 +317,17 @@ params:
                     current.textContent = currentLine;
                   }
 
-                  setTimeout(tick, nextDelay());
-                }, START_DELAY_MS);
+                  schedule(nextDelay());   // NEW
+                }
+                schedule(START_DELAY_MS);   // NEW: use the scheduler so we can cancel
+                // Click the bio area to stop typing and reveal everything with a fade
+                host.addEventListener('click', revealNow);
+                // If snappier performance is preferred in mobile
+                // host.addEventListener('touchstart', revealNow);
+
+                // If you prefer "click anywhere on the page":
+                // document.addEventListener('click', revealNow);
+
                 // ---------- /NEW ----------
               });
             })();
