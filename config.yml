@@ -324,12 +324,12 @@ params:
                 }
                 schedule(START_DELAY_MS);   // NEW: use the scheduler so we can cancel
                 // Click the bio area to stop typing and reveal everything with a fade
-                host.addEventListener('click', revealNow);
+                // host.addEventListener('click', revealNow);
                 // If snappier performance is preferred in mobile
                 // host.addEventListener('touchstart', revealNow);
 
                 // If you prefer "click anywhere on the page":
-                // document.addEventListener('click', revealNow);
+                 document.addEventListener('click', revealNow);
 
                 // ---------- /NEW ----------
               });
@@ -352,7 +352,7 @@ params:
               url: /news/
 
     socialIcons:
-        - name: CV
+        #- name: CV
           #url: cv.pdf 
         - name: Email
           url: mailto:niladrik@tamu.edu

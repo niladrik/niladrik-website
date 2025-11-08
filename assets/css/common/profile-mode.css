@@ -43,7 +43,7 @@
 
 .button {
     background: var(--tertiary);
-    border-radius: var(--radius);
+    border-radius: 25px; /* pill style */
     margin: 6px 12px 6px 0px;
     padding: 10px;
 }
@@ -199,7 +199,7 @@
   .profile .buttons .button {
     font-size: 0.95rem;      /* slightly smaller text */
     padding: 0.55rem 0.9rem; /* less padding */
-    /* border-radius: 6px;       visually tighter corners */
+    border-radius: 25px;     /*  pill-style */
     margin: 4px 8px;         /* lighter spacing */
   }
 }
