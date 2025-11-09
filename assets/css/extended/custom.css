@@ -1086,3 +1086,44 @@ body.menu-open .menu-trigger span:nth-child(1) { transform: translateY(6px) rota
 body.menu-open .menu-trigger span:nth-child(2) { opacity: 0; }
 body.menu-open .menu-trigger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
+@media (max-width: 768px) {
+  #menu li { margin: 0 !important; list-style: none !important; }
+  #menu a  { display: block !important; padding: .9rem 1rem !important; line-height: 1.2 !important; }
+}
+
+
+/* Subtle background + fade-in for dropdown */
+body.menu-open .header .nav #menu {
+  animation: fadeDown 0.2s ease-out;
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-0.4rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Optional: soften the touch area around the icon */
+.menu-trigger {
+  border-radius: 4px;
+}
+.menu-trigger:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+/* Optional: adjust X icon thickness for better balance */
+.menu-trigger span {
+  height: 2px;
+  border-radius: 2px;
+}
+
+body.menu-open .header .nav #menu {
+  background: rgba(255, 255, 255, 0.96) !important;   /* light mode */
+  color: var(--primary, #111);
+  backdrop-filter: blur(1.5px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.22) !important;
+  border-radius: 0 0 25px 25px;
+}
+body.dark.menu-open .header .nav #menu {
+  background: rgba(25, 25, 25, 0.96) !important;       /* dark mode */
+  color: var(--theme, #f4f4f4);
+}
+
