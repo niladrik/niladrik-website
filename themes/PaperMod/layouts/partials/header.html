@@ -122,9 +122,16 @@
         {{- $currentPage := . }}
         <!-- Hamburger menu -->
         <button class="menu-trigger" id="menu-trigger" type="button"
-                aria-label="Open menu" aria-controls="menu" aria-expanded="false">
+                aria-label="Open menu" aria-controls="menu" aria-expanded="false"
+                onclick="(function(btn){
+                var open = document.body.classList.toggle('menu-open');
+                btn.setAttribute('aria-expanded', open);
+                var m = document.getElementById('menu');
+                if (m) m.setAttribute('aria-hidden', !open);
+                })(this);">
         <span></span><span></span><span></span>
         </button>
+
 
         <ul id="menu" aria-hidden="true">
         {{- range site.Menus.main }}
