@@ -139,9 +139,9 @@
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
-  gap:.8rem;
+  gap:.5rem;
   width:100%;
-  margin-top:.4rem;
+  margin-top:0rem;
 }
 
 /* Title size (keep your tweak) */
@@ -213,8 +213,9 @@
 
 /* Tiny cushion under buttons for optical balance */
 .profile .profile_inner > .buttons {
-  margin-top: 0.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+  font-size: 0.96em;
 }
 /* === Typing Animation Core === */
 
@@ -282,7 +283,7 @@
 .profile .profile_inner > span p,
 .profile .profile_inner > .subtitle p {
   margin: 0 0 1rem;  /* bottom-only spacing */
-  line-height: 1.75;
+  letter-spacing: 0.01em;
 }
 
 /* Last paragraph: no extra gap after */
@@ -315,7 +316,7 @@
 
 /* Stronger title hierarchy + lighter bio */
 .profile .profile_inner h1 {
-  font-size: 3.2rem;          /* was 2.5rem */
+  font-size: 3.3rem;          /* was 2.5rem */
   font-weight: 700;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -326,11 +327,11 @@
 /* Apply to your actual span-based bio text */
 .profile .profile_inner > span {
   font-size: 0.97rem;         /* slightly smaller than default */
-  line-height: 1.65;
+  line-height: 1.6;
   color: color-mix(in srgb, var(--secondary) 90%, black 10%);
-  font-weight: 400;
+  font-weight: 300;
   text-align: justify;
-  max-width: 850px;
+  max-width: 800px;
   margin: 0 auto 1.2rem;
 }
 

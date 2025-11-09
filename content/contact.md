@@ -133,7 +133,7 @@ slug: "contact"
     margin-bottom: 0.8rem; /* Margin at bottm */
   }
 
-  /* ✅ indent text only (not the label) */
+  /* indent text only (not the label) */
   .contact-col {
     display: flex;
     flex-direction: column;
@@ -160,9 +160,9 @@ slug: "contact"
 
 <div class="contact-col">
 
-<span class="contact-label">
+<h3 class="contact-label">
   <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg> EMAIL
-</span>
+</h3>
 
 <span style="font-family: monospace;">niladrik[at]tamu[dot]edu</span>
 
@@ -170,9 +170,10 @@ slug: "contact"
 
 <div class="contact-col">
 
-  <span class="contact-label"> 
+  <h3 class="contact-label"> 
     <svg class="icon" aria-hidden="true"><use href="#icon-pin"/></svg> Office location
-  </span>
+  </h3>
+
   
   Room 460<br>
   Blocker Building (BLOC)<br>

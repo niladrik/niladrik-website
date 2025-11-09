@@ -17,6 +17,9 @@ ignoreFiles:
 
 menu:
     main:
+        - name: About
+          url: /
+          weight: 1
         - name: Research
           url: /research/
           weight: 2
