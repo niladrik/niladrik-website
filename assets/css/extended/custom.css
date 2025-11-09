@@ -1074,7 +1074,49 @@ body.dark .profile .profile_inner p a{
   #menu a  { display: block; padding: .35rem 0; }
 }
 
-/* Optional: animate to X when open */
+/* animate to X when open */
+body.menu-open .menu-trigger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+body.menu-open .menu-trigger span:nth-child(2) { opacity: 0; }
+body.menu-open .menu-trigger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+/* Anchor the absolute menu to the nav bar */
+.header .nav { position: relative; z-index: 2; }
+
+/* Show hamburger on mobile, hide on desktop (stronger selectors) */
+@media (max-width: 768px) {
+  .header .nav .menu-trigger { display: block !important; margin-left: auto; }
+  .header .nav .logo { flex: 1 1 auto; }
+
+  /* Force-hide the menu by default on mobile (override PaperMod's flex) */
+  .header .nav #menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    background: var(--theme, #fff);
+    padding: .75rem 1rem;
+    border-top: 1px solid var(--entry, rgba(0,0,0,.06));
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+
+    display: none !important;          /* override theme */
+    flex-direction: column !important; /* ensure vertical stack */
+    gap: .6rem;
+    z-index: 1000;
+  }
+
+  /* When open, force-show it */
+  body.menu-open .header .nav #menu {
+    display: flex !important;
+  }
+
+  /* Tappable targets */
+  .header .nav #menu li { list-style: none; }
+  .header .nav #menu a  { display: block; padding: .45rem 0; }
+}
+
+/* Prevent background scroll while open (iOS safe) */
+body.menu-open { overflow: hidden; }
+
+/* Keep your hamburger morph */
 body.menu-open .menu-trigger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 body.menu-open .menu-trigger span:nth-child(2) { opacity: 0; }
 body.menu-open .menu-trigger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
