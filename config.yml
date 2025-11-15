@@ -75,7 +75,8 @@ params:
             <p>Howdy! I am a Ph.D. student in the <a href="https://artsci.tamu.edu/statistics/index.html">Department of Statistics</a> at Texas A&amp;M University, advised by <a href="https://sites.google.com/view/rajguhaniyogi">Dr. Rajarshi Guhaniyogi</a> and <a href="https://pages.stat.wisc.edu/~dpati2/">Dr. Debdeep Pati</a>. Before joining A&amp;M, I earned my master’s from the <a href="https://www.isical.ac.in">Indian Statistical Institute</a> and my bachelor's from <a href="https://www.sxccal.edu/">St. Xavier’s College (Autonomous), Kolkata</a>.</p>
 
             <p>My current research focuses on scalable Bayesian methodologies for federated setups and on high-dimensional structured modeling. In my spare time, I enjoy playing the piano, exploring photography, and a quiet cup of chai.</p>
-
+            
+            <!--
             <script>
             (function () {
               var TYPE_DELAY_MS  = 44;
@@ -338,6 +339,7 @@ params:
               });
             })();
             </script>
+            -->
 
 
 
