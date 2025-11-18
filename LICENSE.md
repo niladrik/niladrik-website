@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025–present Niladri Kal
+Copyright (c) 2025–present Niladri Kal   
 Originally based on the Hugo theme by Pascal Michaillat (c) 2023–present
 
 
