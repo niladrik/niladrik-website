@@ -906,23 +906,40 @@ body.dark .post-content .ns-accord {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--ns-accent) 25%, transparent) !important;
 }
 
-/* --- Fix double underline under links in Updates timeline --- */
-.post-content .ns-body a {
-  text-decoration: none;              /* remove base underline */
-  border-bottom: 1px solid currentColor; /* keep a single clean underline */
+/* === Updates page: [open] hint styling === */
+.ns-openhint {
+  font-size: 0.6em;
+  opacity: 0.5;
+  margin-left: 0.25em;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -0.15em;
+}
+
+/* === Updates timeline links (e.g., arXiv) ====================== */
+.post-content .ns-body a,
+.post-content .ns-body a:link,
+.post-content .ns-body a:visited {
+  color: var(--ns-accent) !important;
+  text-decoration: none !important;
+  border-bottom: 2px solid var(--ns-accent) !important;
+  box-shadow: none !important;
   padding-bottom: 1px;
-  transition: border-color .2s ease;
+  font-weight: 500;
+  transition:
+    border-bottom-width 0.15s ease,
+    color 0.15s ease,
+    font-weight 0.15s ease;
 }
 
-/* Hover state for consistency */
-.post-content .ns-body a:hover {
-  border-color: var(--ns-accent);
+.post-content .ns-body a:hover,
+.post-content .ns-body a:active {
+  border-bottom-width: 3px !important;
+  font-weight: 700 !important;
+  color: var(--ns-accent) !important;
 }
 
-/* Optional: creamy white hover color in dark mode */
-body.dark .post-content .ns-body a:hover {
-  border-color: #ddd8d8;
-}
 /* === Year label emphasis ============================================ */
 .post-content .ns-yearlabel{
   font-size: 1.35rem !important;   /* bolder, more readable */
@@ -1058,8 +1075,13 @@ body.dark .profile .profile_inner p a{
   .header .nav #menu {
     position: absolute !important;
     top: 100% !important;
-    right: 0 !important;
-    left: 0 !important;
+    right: 0.5rem !important;          /* match your .menu-trigger margin-right */
+    left: auto !important;
+    text-align: right !important;
+
+    /* 🔹 Width adapts to content */
+    width: max-content;               /* safety so it’s not too tiny */
+    max-width: calc(100vw - 2rem);   /* safety on very narrow screens */
     background: var(--theme, #fff) !important;
     padding: .75rem 1rem !important;
     border-top: 1px solid var(--entry, rgba(0,0,0,.06)) !important;

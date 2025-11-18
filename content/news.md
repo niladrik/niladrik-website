@@ -204,19 +204,4 @@ document.addEventListener("DOMContentLoaded", () => {
   position: relative;
   top: -0.15em;                /* nudge upward to align perfectly */
 }
-.ns-list a,
-.ns-list a:link,
-.ns-list a:visited,
-.ns-list a:hover,
-.ns-list a:active {
-  color: #500000 !important;          /* maroon text */
-  text-decoration: none !important;   /* kill browser underline */
-  border-bottom: 2px solid #500000 !important;  /* single maroon underline */
-  box-shadow: none !important;        /* in case theme uses shadow underline */
-}
-.ns-list a:hover {
-  border-bottom-width: 3px !important;            /* bump thickness */
-  color: #500000 !important;                       /* keep maroon */
-  font-weight: 700 !important; 
-}
 </style>
