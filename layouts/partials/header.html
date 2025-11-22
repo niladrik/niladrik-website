@@ -178,94 +178,104 @@
         </script>
 
         <script>
-            (function(){
-                if (window.matchMedia('(max-width: 768px)').matches) return;
+        (function(){
+            if (window.matchMedia('(max-width: 768px)').matches) return;
+
             // ---- Settings
             const HOSTS = ['.menu__inner--mobile', '#menu', '.menu__inner']; // first visible wins
-            const TRANSITION = 'transform 250ms ease';
 
             // ---- Helpers
             function getHost(){
-                for(const sel of HOSTS){
-                const el = document.querySelector(sel);
-                if (!el) continue;
-                if (el.offsetParent !== null || el.getClientRects().length) return el;
+                for (const sel of HOSTS){
+                    const el = document.querySelector(sel);
+                    if (!el) continue;
+                    if (el.offsetParent !== null || el.getClientRects().length) return el;
                 }
                 return null;
             }
+
             function ensureInk(host){
                 let ink = host.querySelector('.ink');
-                if(!ink){
-                ink = document.createElement('span');
-                ink.className = 'ink';
-                host.appendChild(ink);
+                if (!ink){
+                    ink = document.createElement('span');
+                    ink.className = 'ink';
+                    host.appendChild(ink);
                 }
-                if(ink.style.transition !== TRANSITION) ink.style.transition = TRANSITION;
                 return ink;
             }
+
             function activeLink(host){
                 return host.querySelector('a span.active')?.closest('a') || host.querySelector('a');
             }
+
             function moveTo(host, el){
-                if(!host || !el) return;
+                if (!host || !el) return;
                 const ink = ensureInk(host);
-                const hb = host.getBoundingClientRect();
-                const rb = el.getBoundingClientRect();
+
+                const hb  = host.getBoundingClientRect();
+                const rb  = el.getBoundingClientRect();
                 const dpr = window.devicePixelRatio || 1;
+
+                // Position and width relative to the host
                 const x = Math.round((rb.left - hb.left) * dpr) / dpr;
                 const w = Math.round(rb.width * dpr) / dpr;
 
-                // Skip if no change (prevents Safari from collapsing transitions)
+                // Skip if no change
                 if (ink.dataset.x == x && ink.dataset.w == w) return;
 
-                ink.dataset.x = x; ink.dataset.w = w;
-                // Reflow to guarantee transition
-                void ink.offsetWidth;
-                ink.style.transform = `translate3d(${x}px,0,0) scaleX(${w})`;
+                ink.dataset.x = x;
+                ink.dataset.w = w;
+
+                // Directly set left + width → underline exactly matches text width
+                ink.style.left  = `${x}px`;
+                ink.style.width = `${w}px`;
             }
-            function reset(host){ moveTo(host, activeLink(host)); }
+
+            function reset(host){
+                moveTo(host, activeLink(host));
+            }
 
             // ---- Init
             const host = getHost();
-            if(!host) return;
+            if (!host) return;
             ensureInk(host);
-            requestAnimationFrame(()=> reset(host));  // initial snap
+            requestAnimationFrame(() => reset(host));  // initial snap
 
-            // ---- Event delegation (single bind)
-            // Use mouseover/mouseout (they bubble); filter to <a>
-            host.addEventListener('mouseover', e=>{
+            // ---- Event delegation
+            host.addEventListener('mouseover', e => {
                 const a = e.target.closest('a');
-                if(a && host.contains(a)) moveTo(host, a);
+                if (a && host.contains(a)) moveTo(host, a);
             });
-            host.addEventListener('mouseout', e=>{
-                // If leaving an <a> or the host entirely, restore
+
+            host.addEventListener('mouseout', e => {
                 const to = e.relatedTarget;
-                if(!to || !host.contains(to)) setTimeout(()=>reset(host), 60);
+                if (!to || !host.contains(to)) setTimeout(() => reset(host), 60);
             });
 
             // Keyboard focus
-            host.addEventListener('focusin', e=>{
+            host.addEventListener('focusin', e => {
                 const a = e.target.closest('a');
-                if(a && host.contains(a)) moveTo(host, a);
+                if (a && host.contains(a)) moveTo(host, a);
             });
-            host.addEventListener('focusout', e=>{
-                if(!host.contains(e.relatedTarget)) setTimeout(()=>reset(host), 60);
+            host.addEventListener('focusout', e => {
+                if (!host.contains(e.relatedTarget)) setTimeout(() => reset(host), 60);
             });
 
             // Touch/pointer
-            host.addEventListener('pointerdown', e=>{
+            host.addEventListener('pointerdown', e => {
                 const a = e.target.closest('a');
-                if(a && host.contains(a)) moveTo(host, a);
+                if (a && host.contains(a)) moveTo(host, a);
             }, {passive:true});
-            host.addEventListener('pointerup', ()=> setTimeout(()=>reset(host), 180), {passive:true});
+            host.addEventListener('pointerup', () => setTimeout(() => reset(host), 180), {passive:true});
 
-            // Keep aligned on size/orientation/font load (no observers)
-            const realign = ()=> reset(host);
+            // Keep aligned on size/orientation/font load
+            const realign = () => reset(host);
             window.addEventListener('resize', realign, {passive:true});
             window.addEventListener('orientationchange', realign, {passive:true});
             document.fonts?.ready?.then(realign);
             window.addEventListener('pageshow', realign, {passive:true});
-            })();
+        })();
         </script>
+
     </nav>
 </header>

@@ -113,15 +113,40 @@ body.dark .nk-teach{
 .nk-card.is-flipped .nk-card-inner { transform:rotateX(180deg); }
 
 .nk-face {
-  position:absolute; inset:0; padding:.9rem 1rem;
+  position:relative;  padding:.9rem 1rem;
   border:1.5px solid transparent; border-radius:var(--radius);
   background:transparent; -webkit-backface-visibility:hidden;
   backface-visibility:hidden; transition:border-color .15s ease;
+  height: auto; box-sizing: border-box;
+  /* hover/active tint */
+  .nk-card:hover &.front { 
+    background: color-mix(in srgb, #500000 7%, transparent);
+  }
+  .nk-card.is-flipped &.back {
+    background: color-mix(in srgb, #500000 7%, transparent);
+  }
+
+  /* dark mode tint */
+  body.dark .nk-card:hover &.front {
+    background: color-mix(in srgb, #ddd8d8 8%, transparent);
+  }
+  body.dark .nk-card.is-flipped &.back {
+    background: color-mix(in srgb, #ddd8d8 8%, transparent);
+  }
+}
+
+/* === Dark mode adaptive colors for pills, dots, borders, progress bars === */
+body.dark .nk-teach {
+  --accent: #ddd8d8;                 /* creamy white in dark mode */
+  --dot-active: #ddd8d8;             /* active dot tint */
+  --pill-fg: #ddd8d8;                /* pill text/border */
+  --pill-bg: transparent;
 }
 .nk-face.front { transform:rotateX(0); }
-.nk-face.back  { transform:rotateX(180deg); }
+.nk-face.back  { transform:rotateX(180deg); position: absolute; inset:0; }
 .nk-card:not(.is-flipped) .back { pointer-events:none; }
 .nk-card.is-flipped .front { pointer-events:none; }
+
 
 /* === Ultra-bold, long maroon corner hover lines ========================== */
 .nk-card::before,

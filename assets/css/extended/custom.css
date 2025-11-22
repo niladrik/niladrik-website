@@ -249,17 +249,30 @@ body.dark #menu a span.active{ color:#ddd8d8; }
 #menu, .menu__inner--mobile{ position:relative; overflow:visible; }
 
 /* Real ink element injected by JS */
-#menu .ink, .menu__inner--mobile .ink{
-  position:absolute; left:0; bottom:-4px;
-  width:1px; height:3px;               /* thicker during testing */
-  background:#500000;
-  transform-origin:left center;
-  transform:translate3d(0,0,0) scaleX(0);
-  will-change:transform;
-  pointer-events:none;
-  z-index:10;
+/* Hosts (desktop and mobile). We won't rely on pseudo-elements. */
+#menu, .menu__inner--mobile{ position:relative; overflow:visible; }
+
+/* Real ink element injected by JS – width is set dynamically */
+#menu .ink,
+.menu__inner--mobile .ink {
+  position: absolute;
+  left: 0;
+  bottom: -4px;           /* adjust vertical offset if needed */
+  width: 0;               /* JS will set the actual width */
+  height: 3px;            /* thickness of the underline */
+  background: #500000;
+  pointer-events: none;
+  z-index: 10;
+  transition:
+    left 0.22s ease,
+    width 0.22s ease;     /* smooth slide + resize */
 }
-body.dark #menu .ink, body.dark .menu__inner--mobile .ink{ background:#ddd8d8; }
+
+body.dark #menu .ink,
+body.dark .menu__inner--mobile .ink {
+  background: #ddd8d8;
+}
+
 
 /* Optional: if your mobile row is taller */
 @media (max-width:640px){
@@ -979,7 +992,7 @@ body.dark .post-content .ns-yearlabel{
   background-repeat: no-repeat;
   background-position: 0 118%;         /* sit at baseline */
   background-size: 0% 2.4px;           /* full thickness, tweak 2.2–2.6px if needed */
-  transition: background-size .25s ease;
+  transition: background-size .3s ease;
 }
 
 .profile .profile_inner p a:hover{
