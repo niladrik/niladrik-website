@@ -245,32 +245,41 @@ body.dark #profile a:not(:has(svg)):not(.button)::after {
 }
 body.dark #menu a span.active{ color:#ddd8d8; }
 
-/* Hosts (desktop and mobile). We won't rely on pseudo-elements. */
-#menu, .menu__inner--mobile{ position:relative; overflow:visible; }
+/* Hosts (desktop and mobile) for the moving nav underline */
+#menu,
+.menu__inner,
+.menu__inner--mobile {
+  position: relative;
+  overflow: visible;
+}
 
-/* Real ink element injected by JS */
-/* Hosts (desktop and mobile). We won't rely on pseudo-elements. */
-#menu, .menu__inner--mobile{ position:relative; overflow:visible; }
-
-/* Real ink element injected by JS – width is set dynamically */
+/* Real ink element injected by JS – we move it with transform */
 #menu .ink,
+.menu__inner .ink,
 .menu__inner--mobile .ink {
   position: absolute;
-  left: 0;
-  bottom: -4px;           /* adjust vertical offset if needed */
-  width: 0;               /* JS will set the actual width */
-  height: 3px;            /* thickness of the underline */
-  background: #500000;
+  bottom: -4px;               /* tweak up/down to taste */
+  height: 3px;
+  width: 0;                   /* JS will set width */
   pointer-events: none;
   z-index: 10;
+
+  background: #500000;        /* light mode color */
+  transform: translateX(0);
+
+  /* Hint to browser this will animate → smoother on some GPUs */
+  will-change: transform, width;
+
+  /* Very smooth, slightly “glidey” curve */
   transition:
-    left 0.22s ease,
-    width 0.22s ease;     /* smooth slide + resize */
+    transform 0.75s cubic-bezier(0.22, 0.44, 0, 1),
+    width     0.5s cubic-bezier(0.22, 0.44, 0, 1);
 }
 
 body.dark #menu .ink,
+body.dark .menu__inner .ink,
 body.dark .menu__inner--mobile .ink {
-  background: #ddd8d8;
+  background: #ddd8d8;        /* creamy in dark mode */
 }
 
 

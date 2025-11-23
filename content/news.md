@@ -72,7 +72,7 @@ hideMeta: true
       <li>
         <span class="ns-month">Aug</span>
         <span class="ns-body">
-          Joined the Department of Statistics, Texas A&amp;M University.
+          Joined the PhD program in the Department of Statistics at Texas A&amp;M University.
         </span>
       </li>
     </ul>

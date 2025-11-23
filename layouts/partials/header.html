@@ -212,24 +212,36 @@
                 if (!host || !el) return;
                 const ink = ensureInk(host);
 
-                const hb  = host.getBoundingClientRect();
-                const rb  = el.getBoundingClientRect();
-                const dpr = window.devicePixelRatio || 1;
+                // Measure the inner <span> (text) for OS-consistent width
+                const target = el.querySelector('span') || el;
 
-                // Position and width relative to the host
-                const x = Math.round((rb.left - hb.left) * dpr) / dpr;
-                const w = Math.round(rb.width * dpr) / dpr;
+                const hb = host.getBoundingClientRect();
+                const rb = target.getBoundingClientRect();
 
-                // Skip if no change
-                if (ink.dataset.x == x && ink.dataset.w == w) return;
+                const x = rb.left - hb.left;
+                const w = rb.width;
 
+                const prevX = parseFloat(ink.dataset.x ?? 'NaN');
+                const prevW = parseFloat(ink.dataset.w ?? 'NaN');
+
+                // Ignore microscopic changes so it doesn't jitter on subpixel differences
+                if (!Number.isNaN(prevX) && !Number.isNaN(prevW)) {
+                    if (Math.abs(x - prevX) < 0.3 && Math.abs(w - prevW) < 0.3) {
+                        return;
+                    }
+                }
+
+                // Store for next comparison
                 ink.dataset.x = x;
                 ink.dataset.w = w;
 
-                // Directly set left + width → underline exactly matches text width
-                ink.style.left  = `${x}px`;
+                // Always animate from current position → new one
                 ink.style.width = `${w}px`;
+                ink.style.transform = `translateX(${x}px)`;
             }
+
+
+
 
             function reset(host){
                 moveTo(host, activeLink(host));
